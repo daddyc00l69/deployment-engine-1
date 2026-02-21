@@ -16,9 +16,10 @@ const DEPLOYMENTS_ROOT = path.resolve(__dirname, '../../deployments');
  * @param {string} repoUrl URL of the repository (HTTP/HTTPS)
  * @param {string} projectName Sanitized project name
  * @param {string} userId UUID of the user
+ * @param {string} githubToken Raw OAuth Access token (Optional)
  * @returns {Promise<string>} The absolute path to the cloned repository
  */
-async function clone(repoUrl, projectName, userId) {
+async function clone(repoUrl, projectName, userId, githubToken = null) {
     if (!userId) {
         throw new Error('User ID is required for cloning isolated projects');
     }
@@ -37,8 +38,14 @@ async function clone(repoUrl, projectName, userId) {
             fs.rmSync(targetPath, { recursive: true, force: true });
         }
 
-        logger.info(`[${projectName}] Cloning repository: ${repoUrl}`);
-        const { stdout } = await execFilePromise('git', ['clone', repoUrl, targetPath]);
+        // Configure private URL authentication
+        let authUrl = repoUrl;
+        if (githubToken && repoUrl.startsWith('https://')) {
+            authUrl = repoUrl.replace('https://', `https://x-access-token:${githubToken}@`);
+        }
+
+        logger.info(`[${projectName}] Cloning repository: ${repoUrl}`); // Don't log authUrl!
+        const { stdout } = await execFilePromise('git', ['clone', authUrl, targetPath]);
 
         if (stdout) logger.info(`[${projectName}] Git Clone output: ${stdout}`);
 

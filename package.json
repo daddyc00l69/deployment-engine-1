@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.13.5",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.69.3",
     "cors": "^2.8.6",
@@ -23,7 +24,9 @@
     "morgan": "^1.10.1",
     "nodemailer": "^8.0.1",
     "pg": "^8.18.0",
+    "qrcode": "^1.5.4",
     "razorpay": "^2.9.6",
+    "speakeasy": "^2.0.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

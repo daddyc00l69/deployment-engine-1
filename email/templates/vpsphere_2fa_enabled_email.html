@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere 2FA Enabled Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#5850f1",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111022",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<div class="relative flex min-h-screen w-full flex-col items-center py-12 px-4">
+<!-- Main Email Container -->
+<div class="w-full max-w-[600px] bg-white dark:bg-[#1a1932] rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2d2c4e] overflow-hidden">
+<!-- Header/Logo Area -->
+<header class="flex items-center justify-center border-b border-solid border-[#f0f0f4] dark:border-[#2d2c4e] px-10 py-6">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<svg class="size-5" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111118] dark:text-white text-xl font-bold tracking-tight">VPSphere</h2>
+</div>
+</header>
+<!-- Hero Section / Shield Icon -->
+<div class="flex flex-col items-center pt-10 pb-6 px-8 text-center">
+<div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined !text-[48px]" data-icon="shield_check">
+                        verified_user
+                    </span>
+</div>
+<h1 class="text-[#111118] dark:text-white tracking-tight text-2xl font-bold leading-tight mb-4">
+                    Two-Factor Authentication (2FA) Enabled
+                </h1>
+<p class="text-[#4b5563] dark:text-gray-400 text-base font-normal leading-relaxed max-w-md">
+                    Great news! Your VPSphere account is now more secure. Two-factor authentication has been successfully enabled for your account.
+                </p>
+</div>
+<!-- Action Area -->
+<div class="px-8 py-6 flex flex-col items-center border-t border-b border-[#f0f0f4] dark:border-[#2d2c4e] bg-[#fafafa] dark:bg-[#1e1d3a]">
+<button class="flex min-w-[240px] cursor-pointer items-center justify-center rounded-lg h-12 px-8 bg-primary text-white text-base font-bold transition-all hover:bg-opacity-90 active:scale-95 shadow-lg shadow-primary/20">
+                    Manage Security Settings
+                </button>
+<p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                    Activity occurred on: <span class="font-medium text-gray-700 dark:text-gray-200">October 24, 2023 at 14:32 UTC</span>
+</p>
+</div>
+<!-- Unexpected Action Warning -->
+<div class="px-10 py-8">
+<div class="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-lg p-5">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400" data-icon="warning">
+                            warning
+                        </span>
+<div>
+<h3 class="text-sm font-bold text-red-800 dark:text-red-400">Did not authorize this change?</h3>
+<p class="text-sm text-red-700 dark:text-red-400/80 mt-1 leading-relaxed">
+                                If you did not enable 2FA or think this was an error, please <a class="font-bold underline decoration-2" href="#">contact our security team</a> immediately or reset your password to secure your account.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Support Footer -->
+<div class="px-10 pb-10 text-center">
+<p class="text-sm text-gray-500 dark:text-gray-400">
+                    Need more help? Visit our <a class="text-primary font-medium hover:underline" href="#">Support Center</a> or reply to this email.
+                </p>
+</div>
+</div>
+<!-- System Footer -->
+<footer class="mt-8 text-center text-gray-400 dark:text-gray-600">
+<p class="text-xs uppercase tracking-widest font-semibold mb-2">VPSphere Cloud Hosting</p>
+<p class="text-xs leading-relaxed max-w-xs mx-auto">
+                123 Cloud Avenue, Server Suite 404, Tech City, CA 90210<br/>
+                You received this email because 2FA was modified on your account.
+            </p>
+<div class="flex justify-center gap-4 mt-6">
+<a class="hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined !text-xl" data-icon="facebook">public</span>
+</a>
+<a class="hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined !text-xl" data-icon="twitter">alternate_email</span>
+</a>
+<a class="hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined !text-xl" data-icon="linkedin">work</span>
+</a>
+</div>
+</footer>
+</div>
+</body></html>

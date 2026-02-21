@@ -13,7 +13,7 @@ const deploymentEngine = require('../services/deploymentEngine');
 
 router.post('/', authMiddleware, async (req, res) => {
     try {
-        const { repoUrl, projectName } = req.body;
+        const { repoUrl, projectName, branch, repoId } = req.body;
 
         if (!repoUrl || !projectName) {
             return res.status(400).json({ error: 'repoUrl and projectName are required' });
@@ -61,8 +61,8 @@ router.post('/', authMiddleware, async (req, res) => {
 
             // Create Deployment Record
             const deployInsert = await client.query(
-                "INSERT INTO deployments (project_id, status) VALUES ($1, 'queued') RETURNING id",
-                [projectId]
+                "INSERT INTO deployments (project_id, user_id, repo_name, branch, status, logs) VALUES ($1, $2, $3, $4, 'pending', 'Deployment queued.') RETURNING id",
+                [projectId, user.id, repoUrl, branch || 'main']
             );
             const deploymentId = deployInsert.rows[0].id;
 
@@ -72,6 +72,7 @@ router.post('/', authMiddleware, async (req, res) => {
             await deploymentQueue.add('deploy-app', {
                 repoUrl,
                 projectName: safeProjectName,
+                branch: branch || 'main',
                 user: { id: user.id, username: user.username },
                 plan: { memory_limit_mb: plan.memory_limit_mb, cpu_limit: plan.cpu_limit },
                 projectId,

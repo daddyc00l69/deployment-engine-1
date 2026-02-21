@@ -10,32 +10,63 @@ const deployRoutes = require('./routes/deploy');
 const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const paymentRoutes = require('./routes/payments');
-const { authLimiter, deployLimiter } = require('./middleware/rateLimiter');
+const githubRoutes = require('./routes/github'); // Added githubRoutes
+const apiKeyRoutes = require('./routes/api-keys');
+const envRoutes = require('./routes/envs');
+const { authLimiter, deployLimiter, globalLimiter } = require('./middleware/rateLimiter');
 const { errorHandler, setupProcessErrorHandlers } = require('./middleware/errorHandler');
 const supabaseAuth = require('./middleware/supabaseAuth');
+const http = require('node:http');
+const { initWebSockets } = require('./services/websocket');
 
 const { pool } = require('./services/db');
 const { connection: redisClient } = require('./services/queue');
 
 const app = express();
+const server = http.createServer(app);
+
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 4000;
+
+// Initialize Realtime WebSocket Streaming
+initWebSockets(server);
 
 // Setup process handlers immediately
 setupProcessErrorHandlers();
 
+// Start Background Jobs
+const { startAuthCleanupJob } = require('./services/authCleanupJob');
+startAuthCleanupJob();
+
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(globalLimiter);
+app.use(cors({
+    origin: ['https://app.devtushar.uk', 'https://devtushar.uk', 'https://www.devtushar.uk', 'http://localhost:3000'],
+    credentials: true
+}));
+
 app.use(express.json());
 
 // Request logging
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
 
+// CSRF Protection (Double-Submit Cookie)
+const csrfProtection = require('./middleware/csrfProtection');
+app.use(csrfProtection);
+
 // Routes
+app.use('/auth/api-keys', apiKeyRoutes);
 app.use('/auth', authLimiter, authRoutes);
 app.use('/deploy', supabaseAuth, deployLimiter, deployRoutes);
 app.use('/project', supabaseAuth, projectRoutes);
+app.use('/envs', envRoutes);
 app.use('/payments', supabaseAuth, paymentRoutes);
+
+// Root health check route
+app.get('/', (req, res) => {
+    res.status(200).json({ status: 'online', service: 'VPSphere Deployment Engine API' });
+});
 
 app.get('/health', async (req, res) => {
     try {
@@ -69,6 +100,6 @@ app.get('/legal/refund', (req, res) => res.json({ refund: 'Placeholder Refund Po
 // Global Error Handler should be last
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     logger.info(`Deployment Engine running on port ${PORT}`);
 });

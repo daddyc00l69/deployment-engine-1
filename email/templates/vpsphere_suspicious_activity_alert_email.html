@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Security Alert | VPSphere</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1313",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4 md:p-10">
+<!-- Email Container -->
+<div class="max-w-[640px] w-full bg-white dark:bg-[#1a0c0c] rounded-xl shadow-xl overflow-hidden border border-gray-100 dark:border-primary/10">
+<!-- Red Accent Top Bar -->
+<div class="h-2 bg-primary w-full"></div>
+<!-- Header -->
+<header class="flex items-center justify-between px-8 py-6 border-b border-gray-50 dark:border-white/5">
+<div class="flex items-center gap-2">
+<div class="text-primary">
+<svg class="size-8" fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z"></path>
+</svg>
+</div>
+<h2 class="text-[#181111] dark:text-white text-xl font-bold tracking-tight">VPSphere</h2>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined !text-sm">shield_lock</span>
+                Security Alert
+            </div>
+</header>
+<!-- Hero Section -->
+<div class="px-8 pt-8 pb-4">
+<div class="flex flex-col md:flex-row gap-6 items-center bg-primary/5 dark:bg-primary/10 p-6 rounded-xl border border-primary/10">
+<div class="shrink-0 size-20 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined !text-4xl">warning</span>
+</div>
+<div class="flex flex-col gap-2">
+<h1 class="text-[#181111] dark:text-white text-2xl font-bold leading-tight">
+                        Suspicious Activity Detected
+                    </h1>
+<p class="text-gray-600 dark:text-gray-400 text-base">
+                        Hello, we noticed a login attempt that looks suspicious. Please review the details below to ensure your account remains secure.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Activity Details -->
+<div class="px-8 py-4">
+<h3 class="text-[#181111] dark:text-white text-sm font-bold uppercase tracking-widest mb-4 opacity-70">
+                Event Details
+            </h3>
+<div class="space-y-1 bg-gray-50 dark:bg-black/20 rounded-lg p-4">
+<div class="flex justify-between items-center py-2 border-b border-gray-200/50 dark:border-white/5">
+<span class="text-gray-500 dark:text-gray-400 text-sm">Event Type</span>
+<span class="text-[#181111] dark:text-white text-sm font-semibold">Multiple Failed Logins</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-gray-200/50 dark:border-white/5">
+<span class="text-gray-500 dark:text-gray-400 text-sm">Timestamp</span>
+<span class="text-[#181111] dark:text-white text-sm font-semibold">October 24, 2023 at 14:32 UTC</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-gray-200/50 dark:border-white/5">
+<span class="text-gray-500 dark:text-gray-400 text-sm">IP Address</span>
+<span class="text-[#181111] dark:text-white text-sm font-semibold">192.168.1.87</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-gray-500 dark:text-gray-400 text-sm">Location</span>
+<div class="flex items-center gap-2">
+<span class="text-[#181111] dark:text-white text-sm font-semibold">Frankfurt, Germany</span>
+<div class="size-4 rounded-full overflow-hidden bg-gray-200" data-location="Germany" style="">
+<div class="w-full h-full bg-cover bg-center" data-alt="Small map thumbnail of Germany" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBaXpXEFOIUtrILs8j02_TMV7tnkwR7yMjJl4P2_jqiC4reQoOnxSKoZBNX65jfz7WTnjgaHRZToK0zdPd5o1vIAhNQz4b3aRuPZPxhmSE7gqRHZLg8IZd4XR9lgRKJaAHhQR5sH3husC3JBqxEIMzq0XBsYCbo4Vcj085ArNLYLG84MdoIk__q6uDlQsaMJbXTevLhJ_qgqSCsMYOk03j8qDwBa4z_8kMkaq0lqSnQJkMXRAqgD4BGRPJav8LY0BhG3AqtafHlgUMs')"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Action Area -->
+<div class="px-8 py-6 text-center border-t border-gray-50 dark:border-white/5 mt-4">
+<p class="text-gray-700 dark:text-gray-300 mb-6 font-medium">
+                If this wasn't you, please secure your account immediately.
+            </p>
+<div class="flex flex-col items-center gap-4">
+<button class="w-full max-w-sm h-14 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+                    Review Activity &amp; Secure Account
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="text-gray-400 dark:text-gray-500 text-sm font-medium hover:text-[#181111] dark:hover:text-white transition-colors">
+                    Yes, this was me
+                </button>
+</div>
+</div>
+<!-- Security Recommendations -->
+<div class="px-8 py-6 bg-gray-50 dark:bg-black/20">
+<p class="text-[#181111] dark:text-white text-sm font-bold mb-4">Recommended security steps:</p>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary !text-xl">check_circle</span>
+<span class="text-gray-600 dark:text-gray-400 text-sm">Update your password to a unique, strong phrase.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary !text-xl">check_circle</span>
+<span class="text-gray-600 dark:text-gray-400 text-sm">Enable Two-Factor Authentication (2FA) if not active.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary !text-xl">check_circle</span>
+<span class="text-gray-600 dark:text-gray-400 text-sm">Review your authorized API keys and SSH keys.</span>
+</li>
+</ul>
+</div>
+<!-- Footer -->
+<footer class="px-8 py-10 text-center">
+<div class="flex justify-center gap-6 mb-6">
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span>
+</a>
+</div>
+<p class="text-gray-400 text-xs leading-relaxed max-w-md mx-auto">
+                Sent by VPSphere Security. You are receiving this because security alerts are mandatory for all active accounts.
+                <br/><br/>
+                VPSphere Inc. | 123 Cloud Drive, Frankfurt, DE
+            </p>
+<div class="mt-6 flex justify-center gap-4">
+<a class="text-primary/60 text-xs font-bold uppercase tracking-widest hover:text-primary" href="#">Support Center</a>
+<span class="text-gray-300">|</span>
+<a class="text-primary/60 text-xs font-bold uppercase tracking-widest hover:text-primary" href="#">Privacy Policy</a>
+</div>
+</footer>
+</div>
+</body></html>

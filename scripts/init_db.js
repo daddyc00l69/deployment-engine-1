@@ -16,8 +16,19 @@ async function initializeDatabase() {
                 username VARCHAR(50) UNIQUE NOT NULL,
                 email VARCHAR(255) UNIQUE NOT NULL,
                 password_hash VARCHAR(255) NOT NULL,
+                role VARCHAR(20) DEFAULT 'user',
                 plan_id INTEGER NOT NULL,
                 razorpay_customer_id VARCHAR(255),
+                email_verified BOOLEAN DEFAULT false,
+                status VARCHAR(20) DEFAULT 'pending',
+                verification_expires_at TIMESTAMP WITH TIME ZONE,
+                otp_hash VARCHAR(255),
+                failed_login_attempts INTEGER DEFAULT 0,
+                locked_until TIMESTAMP WITH TIME ZONE,
+                reset_token_hash VARCHAR(255),
+                reset_expires_at TIMESTAMP WITH TIME ZONE,
+                two_factor_secret VARCHAR(255),
+                two_factor_enabled BOOLEAN DEFAULT false,
                 created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
         `);
@@ -71,6 +82,18 @@ async function initializeDatabase() {
             )
         `);
 
+        // Project Environment Variables (Encrypted At Rest)
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS project_envs (
+                id SERIAL PRIMARY KEY,
+                project_id UUID REFERENCES projects(id) ON DELETE CASCADE,
+                key_name VARCHAR(255) NOT NULL,
+                value_encrypted TEXT NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(project_id, key_name)
+            )
+        `);
+
         // Subscriptions Table
         await client.query(`
             CREATE TABLE IF NOT EXISTS subscriptions (
@@ -106,6 +129,44 @@ async function initializeDatabase() {
                 target_resource VARCHAR(255),
                 details JSONB,
                 ip_address VARCHAR(45),
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Login Logs Table (Anomaly Detection & Auditing)
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS login_logs (
+                id SERIAL PRIMARY KEY,
+                user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+                ip_address VARCHAR(45) NOT NULL,
+                user_agent TEXT,
+                status VARCHAR(20) NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Refresh Tokens Table (Token Rotation & Revocation)
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS refresh_tokens (
+                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+                hashed_token VARCHAR(255) NOT NULL,
+                revoked BOOLEAN DEFAULT false,
+                expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // API Keys (Personal Access Tokens)
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS api_keys (
+                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+                name VARCHAR(50) NOT NULL,
+                key_hash VARCHAR(255) UNIQUE NOT NULL,
+                prefix VARCHAR(10) NOT NULL,
+                last_used_at TIMESTAMP WITH TIME ZONE,
+                expires_at TIMESTAMP WITH TIME ZONE,
                 created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
         `);

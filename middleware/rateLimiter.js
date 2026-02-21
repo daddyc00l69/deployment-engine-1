@@ -3,10 +3,19 @@ const rateLimit = require('express-rate-limit');
 // Strict rate limit for authentication routes to prevent brute force
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    limit: 10, // Limit each IP to 10 requests per windowMs
+    limit: 5, // Limit each IP to 5 requests per windowMs
     message: { error: 'Too many login/register attempts from this IP, please try again after 15 minutes' },
     standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Global API rate limit to prevent generic DDoS/scraping
+const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 150, // Limit each IP to 150 requests per windowMs
+    message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
 });
 
 // Stricter rate limit for core engine functions like deployments to prevent CPU exhaustion
@@ -20,5 +29,6 @@ const deployLimiter = rateLimit({
 
 module.exports = {
     authLimiter,
-    deployLimiter
+    deployLimiter,
+    globalLimiter
 };

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Login Alert</title>
+</head>
+
+<body
+    style="margin: 0; padding: 0; background-color: #f6f6f8; font-family: 'Inter', Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #111118;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"
+        style="background-color: #f6f6f8; padding: 60px 16px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" border="0"
+                    style="background-color: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden; max-width: 600px; width: 100%;">
+                    <tr>
+                        <td align="center" style="padding: 48px 40px;">
+                            <div
+                                style="width: 64px; height: 64px; background-color: #fef3c7; border-radius: 32px; margin: 0 auto 24px auto; text-align: center; line-height: 64px; font-size: 28px;">
+                                🛡️</div>
+                            <h1
+                                style="margin: 0 0 16px 0; font-size: 28px; font-weight: 700; color: #111118; line-height: 1.3;">
+                                New Login Alert</h1>
+                            <p style="margin: 0 0 32px 0; font-size: 16px; color: #475569; line-height: 1.6;">We
+                                observed a new login to your VPSphere account. If this was you, you can safely ignore
+                                this email.</p>
+
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                                style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 32px; text-align: left;">
+                                <tr>
+                                    <td style="padding: 16px 24px; border-bottom: 1px solid #e2e8f0; font-size: 14px;">
+                                        <strong style="color: #64748b;">Device:</strong> {{device_info}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 16px 24px; border-bottom: 1px solid #e2e8f0; font-size: 14px;">
+                                        <strong style="color: #64748b;">IP Address:</strong> {{ip_address}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 16px 24px; font-size: 14px;"><strong
+                                            style="color: #64748b;">Time:</strong> {{login_time}}</td>
+                                </tr>
+                            </table>
+
+                            <p style="margin: 0; font-size: 14px; color: #64748b;">If you don't recognize this activity,
+                                please <a href="{{reset_url}}" style="color: #5850f1; text-decoration: underline;">reset
+                                    your password immediately</a>.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
