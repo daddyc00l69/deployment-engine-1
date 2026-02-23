@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST to create a new API Key
-router.POST('/', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { name } = req.body;
         if (!name) return res.status(400).json({ error: 'Key name is required' });

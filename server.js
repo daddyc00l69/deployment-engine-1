@@ -13,14 +13,17 @@ const paymentRoutes = require('./routes/payments');
 const githubRoutes = require('./routes/github'); // Added githubRoutes
 const apiKeyRoutes = require('./routes/api-keys');
 const envRoutes = require('./routes/envs');
+const sessionsRoutes = require('./routes/sessions');
 const { authLimiter, deployLimiter, globalLimiter } = require('./middleware/rateLimiter');
 const { errorHandler, setupProcessErrorHandlers } = require('./middleware/errorHandler');
-const supabaseAuth = require('./middleware/supabaseAuth');
+const authMiddleware = require('./middleware/authMiddleware');
+const sessionActivity = require('./middleware/sessionActivity');
 const http = require('node:http');
 const { initWebSockets } = require('./services/websocket');
 
 const { pool } = require('./services/db');
 const { connection: redisClient } = require('./services/queue');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const server = http.createServer(app);
@@ -40,13 +43,18 @@ startAuthCleanupJob();
 
 // Middleware
 app.use(helmet());
-app.use(globalLimiter);
+
+// CORS must run before any middleware that may early-return (rate limits, auth).
+// Otherwise the browser will surface "blocked by CORS" even when the real cause is 429/403.
 app.use(cors({
     origin: ['https://app.devtushar.uk', 'https://devtushar.uk', 'https://www.devtushar.uk', 'http://localhost:3000'],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token']
 }));
+app.use(globalLimiter);
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Request logging
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
@@ -58,10 +66,13 @@ app.use(csrfProtection);
 // Routes
 app.use('/auth/api-keys', apiKeyRoutes);
 app.use('/auth', authLimiter, authRoutes);
-app.use('/deploy', supabaseAuth, deployLimiter, deployRoutes);
-app.use('/project', supabaseAuth, projectRoutes);
+// Cookie-based JWT auth (vpsphere_token) for browser sessions
+app.use('/deploy', authMiddleware, sessionActivity(), deployLimiter, deployRoutes);
+app.use('/project', authMiddleware, sessionActivity(), projectRoutes);
 app.use('/envs', envRoutes);
-app.use('/payments', supabaseAuth, paymentRoutes);
+app.use('/payments', authMiddleware, sessionActivity(), paymentRoutes);
+app.use('/api/sessions', authMiddleware, sessionActivity(), sessionsRoutes);
+app.use('/api/github', require('./routes/github'));
 
 // Root health check route
 app.get('/', (req, res) => {
