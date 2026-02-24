@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere Admin: User Plan Upgrade Email</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1313",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e6dbdb] bg-white px-6 md:px-10 py-3 dark:bg-background-dark dark:border-[#3a1d1d]">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#181111] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">VPSphere Admin</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-[#181111] dark:text-white/80 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-[#181111] dark:text-white/80 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Users</a>
+<a class="text-primary text-sm font-semibold leading-normal underline underline-offset-4" href="#">Email Templates</a>
+<a class="text-[#181111] dark:text-white/80 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Revenue</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8 items-center">
+<div class="hidden lg:flex gap-2">
+<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-background-light dark:bg-[#3a1d1d] text-[#181111] dark:text-white">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-background-light dark:bg-[#3a1d1d] text-[#181111] dark:text-white">
+<span class="material-symbols-outlined text-xl">account_circle</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="Admin user profile picture avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMdiOHge7SKwDz1FSgXGD1qxm8HPNFHpDopvSom8rdisQIbcEONDZaRfkdzdviJkMv5fxs4twmqLE2vKV9jcMbM2jraHb4Wtveh41qH7yA_2CbzpWqMhJGJ-lFs00v3VNC1vcHbWvuCifPSoecvQMMYpzzwfPMeh7jDSdRq2idQHpEORIFN2LNePfzs9klErWJmWtEx1YfDc6-vNkkWAVSNoDSMzgM8y9bRpxU5d-TxqZiajgqoyvDwPTJsbwqbfoBvzXqFK1M-EbC");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-8 px-4 md:px-0">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap items-center gap-2 px-4 py-2 text-sm">
+<a class="text-[#896161] font-medium hover:text-primary" href="#">Admin Home</a>
+<span class="text-[#896161] material-symbols-outlined text-xs">chevron_right</span>
+<a class="text-[#896161] font-medium hover:text-primary" href="#">Communication</a>
+<span class="text-[#896161] material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-[#181111] dark:text-white font-semibold">User Upgrade Notification</span>
+</div>
+<!-- Page Title -->
+<div class="flex flex-col md:flex-row md:items-center justify-between px-4 pb-6 pt-8 gap-4">
+<div>
+<h1 class="text-[#181111] dark:text-white text-3xl font-extrabold leading-tight tracking-tight">Email Template Preview</h1>
+<p class="text-[#896161] text-base">This email is automatically sent to admin accounts when a user upgrades their plan.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-xl h-11 px-5 bg-background-light dark:bg-[#3a1d1d] text-[#181111] dark:text-white font-bold text-sm border border-[#e6dbdb] dark:border-[#4d2626]">
+<span class="material-symbols-outlined mr-2">edit</span> Edit Template
+                            </button>
+<button class="flex items-center justify-center rounded-xl h-11 px-5 bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined mr-2">send</span> Send Test
+                            </button>
+</div>
+</div>
+<!-- Email Wrapper Simulation -->
+<div class="bg-[#f0ecec] dark:bg-[#1a0b0b] rounded-xl p-4 md:p-12 border border-[#e6dbdb] dark:border-[#3a1d1d] flex justify-center">
+<!-- Actual Email Content Card -->
+<div class="w-full max-w-[600px] bg-white rounded-lg shadow-2xl overflow-hidden">
+<!-- Email Header Accent -->
+<div class="h-2 bg-primary w-full"></div>
+<div class="p-8">
+<!-- Logo -->
+<div class="flex justify-between items-start mb-10">
+<div class="flex items-center gap-2 text-primary">
+<div class="size-5">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-[#181111] font-bold tracking-tight">VPSphere</span>
+</div>
+<span class="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">Admin Alert</span>
+</div>
+<!-- Main Body -->
+<div class="mb-8">
+<h2 class="text-[#181111] text-2xl font-bold mb-3">Great news! A conversion has occurred.</h2>
+<p class="text-[#5c4040] text-base leading-relaxed">
+                                        A user has just increased their commitment to the platform. <strong>{{user_email}}</strong> has upgraded their subscription plan.
+                                    </p>
+</div>
+<!-- Plan Comparison -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+<div class="p-5 rounded-lg border border-[#f4f0f0] bg-[#fafafa]">
+<p class="text-[#896161] text-xs font-bold uppercase mb-1">Previous Plan</p>
+<p class="text-[#181111] text-lg font-bold">{{old_plan}}</p>
+<p class="text-[#896161] text-sm italic">Standard Tier</p>
+</div>
+<div class="p-5 rounded-lg border-2 border-primary/20 bg-primary/5">
+<p class="text-primary text-xs font-bold uppercase mb-1">New Plan</p>
+<p class="text-[#181111] text-lg font-bold">{{plan_name}}</p>
+<p class="text-primary text-sm font-semibold">Pro Tier Upgrade</p>
+</div>
+</div>
+<!-- Financial Impact Card -->
+<div class="bg-[#181111] rounded-lg p-6 text-white mb-10 flex items-center justify-between">
+<div>
+<p class="text-white/60 text-xs font-medium uppercase tracking-wider mb-1">Revenue Impact</p>
+<p class="text-3xl font-bold text-white">+$ZZ.00 <span class="text-primary text-lg">/mo</span></p>
+</div>
+<div class="bg-primary rounded-full size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl">trending_up</span>
+</div>
+</div>
+<!-- CTA -->
+<div class="text-center mb-8">
+<a class="inline-block w-full sm:w-auto min-w-[200px] py-4 px-8 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary/90 transition-all" href="#">
+                                        View User Profile
+                                    </a>
+</div>
+<div class="border-t border-[#f4f0f0] pt-6">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-background-light flex items-center justify-center">
+<span class="material-symbols-outlined text-[#896161]">alternate_email</span>
+</div>
+<div>
+<p class="text-[#181111] text-sm font-semibold">{{user_email}}</p>
+<p class="text-[#896161] text-xs">Customer ID: #VPS-{{id_placeholder}}</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Email Footer -->
+<div class="bg-background-light p-6 text-center">
+<p class="text-[#896161] text-[11px] leading-normal mb-2">
+                                    This is an automated system notification from your VPSphere Admin panel.
+                                </p>
+<div class="flex justify-center gap-4 text-[11px] font-semibold text-[#181111]">
+<a class="hover:underline" href="#">Notification Settings</a>
+<span class="text-[#e6dbdb]">•</span>
+<a class="hover:underline" href="#">Privacy Policy</a>
+<span class="text-[#e6dbdb]">•</span>
+<a class="hover:underline" href="#">Admin Console</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Extra Stats Cards below preview -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 px-4 md:px-0">
+<div class="bg-white dark:bg-[#311818] rounded-xl p-6 border border-[#e6dbdb] dark:border-[#4d2626] shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">conversion_path</span>
+</div>
+<h4 class="text-[#181111] dark:text-white font-bold">Conversion Rate</h4>
+</div>
+<p class="text-2xl font-black text-[#181111] dark:text-white">+12.4%</p>
+<p class="text-[#896161] text-sm">vs. last 30 days</p>
+</div>
+<div class="bg-white dark:bg-[#311818] rounded-xl p-6 border border-[#e6dbdb] dark:border-[#4d2626] shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-8 rounded-lg bg-green-100 text-green-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">payments</span>
+</div>
+<h4 class="text-[#181111] dark:text-white font-bold">MRR Growth</h4>
+</div>
+<p class="text-2xl font-black text-[#181111] dark:text-white">$4,280</p>
+<p class="text-green-600 text-sm font-semibold">New MRR this month</p>
+</div>
+<div class="bg-white dark:bg-[#311818] rounded-xl p-6 border border-[#e6dbdb] dark:border-[#4d2626] shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">rocket_launch</span>
+</div>
+<h4 class="text-[#181111] dark:text-white font-bold">Plan Popularity</h4>
+</div>
+<p class="text-2xl font-black text-[#181111] dark:text-white">{{plan_name}}</p>
+<p class="text-[#896161] text-sm">Most upgraded tier</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer Action -->
+<footer class="sticky bottom-0 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-t border-[#e6dbdb] dark:border-[#3a1d1d] py-4 px-10 flex justify-between items-center z-10">
+<div class="flex items-center gap-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+</span>
+<span class="text-xs font-medium text-[#896161]">Template Version 2.4.0 (Live)</span>
+</div>
+<div class="flex gap-4">
+<button class="text-sm font-semibold text-[#896161] hover:text-[#181111]">Discard Changes</button>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-bold text-sm shadow-md">Apply Template</button>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

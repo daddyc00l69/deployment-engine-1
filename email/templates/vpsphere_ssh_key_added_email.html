@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere SSH Key Added Email</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5850f1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111118] antialiased">
+<div class="flex min-h-screen flex-col items-center justify-start py-12 px-4">
+<!-- Main Email Container -->
+<div class="w-full max-w-[600px] bg-white dark:bg-[#1a1932] rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2d2c4e] overflow-hidden">
+<!-- Logo Header -->
+<div class="flex flex-col items-center pt-10 pb-6 border-b border-[#f0f0f4] dark:border-[#2d2c4e]">
+<div class="flex items-center gap-2 mb-4">
+<div class="size-8 text-primary flex items-center justify-center">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#111118] dark:text-white">VPSphere</span>
+</div>
+<div class="size-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">key</span>
+</div>
+<h1 class="text-2xl font-bold text-[#111118] dark:text-white px-8 text-center">New SSH Key Added</h1>
+</div>
+<!-- Content Body -->
+<div class="px-10 py-8">
+<p class="text-[#636189] dark:text-slate-400 text-base leading-relaxed text-center mb-8">
+                    A new SSH public key was recently added to your VPSphere account. If this was you, you can safely ignore this email.
+                </p>
+<!-- Key Details Card -->
+<div class="bg-background-light dark:bg-background-dark/50 rounded-lg p-6 mb-8 border border-[#e5e7eb] dark:border-[#2d2c4e]">
+<div class="grid grid-cols-[100px_1fr] gap-y-4">
+<div class="text-xs font-semibold uppercase tracking-wider text-[#636189] dark:text-slate-500 pt-0.5">Label</div>
+<div class="text-sm font-medium text-[#111118] dark:text-white">Work-MacBook-Pro</div>
+<div class="text-xs font-semibold uppercase tracking-wider text-[#636189] dark:text-slate-500 pt-0.5">Fingerprint</div>
+<div class="text-sm font-mono break-all text-primary bg-primary/5 dark:bg-primary/20 p-2 rounded border border-primary/10">
+                            SHA256:nZPn9283hfnA0293nf_example_fingerprint_0123456789
+                        </div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="flex justify-center mb-8">
+<button class="flex min-w-[240px] cursor-pointer items-center justify-center rounded-lg h-12 px-8 bg-primary text-white text-base font-bold transition-all hover:bg-opacity-90 active:scale-95 shadow-lg shadow-primary/20">
+                        Review SSH Keys
+                    </button>
+</div>
+<!-- Security Warning -->
+<div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/20">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-red-500 text-xl">gpp_maybe</span>
+<div>
+<p class="text-sm font-semibold text-red-800 dark:text-red-400">Wasn't you?</p>
+<p class="text-sm text-red-700 dark:text-red-300/80 leading-normal mt-1">
+                                If you did not add this key, your account security may be compromised. 
+                                <a class="font-bold underline underline-offset-2" href="#">Secure your account immediately</a>.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-10 py-8 bg-[#f9fafb] dark:bg-background-dark/30 border-t border-[#f0f0f4] dark:border-[#2d2c4e] text-center">
+<p class="text-xs text-[#636189] dark:text-slate-500 leading-normal">
+                    This is an automated security notification from VPSphere.<br/>
+                    You are receiving this because you signed up for VPSphere hosting services.
+                </p>
+<div class="flex justify-center gap-6 mt-6">
+<a class="text-xs font-medium text-primary hover:underline" href="#">Help Center</a>
+<a class="text-xs font-medium text-primary hover:underline" href="#">Privacy Policy</a>
+<a class="text-xs font-medium text-primary hover:underline" href="#">Unsubscribe</a>
+</div>
+<div class="mt-8 flex justify-center items-center gap-4 grayscale opacity-40">
+<img alt="Security Partner" class="h-6" data-alt="Trusted security partner logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm8EiiuY1rbFPbrz0Q-GAdIe5vmL-tX21UtdfEFOWOdMczRz9MD0ASk9pL_iqYk8fpsJ_DKU5eETwjXXGtRVfiS42xcvNe5OdMWoDlyAQAyUEnIwy1RmMs1FWHiFoRTrIyCCQO1nuGj5tQ7TRUnJ8dhHfKupGzllhRroua_I7wwIvgXriAVSqbMPWxozXQVuuL0l1K5h-RJjIBC0KrK-tEfqu78gqTJU5TgxTg6P-WnNlbNyb_YyAu5j5iSyfFj9CXg6ZmqIbTxfmC"/>
+</div>
+</div>
+</div>
+<!-- Meta Footer Information -->
+<div class="mt-8 text-center text-[#636189] dark:text-slate-500 text-[11px] max-w-[400px]">
+<p>© 2024 VPSphere Cloud Computing Inc.</p>
+<p class="mt-1">123 Cloud Avenue, Tech District, San Francisco, CA 94105</p>
+</div>
+</div>
+</body></html>

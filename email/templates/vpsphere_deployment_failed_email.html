@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere | Deployment Failed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5850f1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111022",
+                        "error-red": "#ef4444",
+                        "error-bg": "#fef2f2",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4 sm:p-8">
+<!-- Email Container -->
+<div class="max-w-[600px] w-full bg-white dark:bg-slate-900 shadow-xl rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
+<!-- Header / Logo Area -->
+<div class="px-8 py-6 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2 text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">account_tree</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">VPSphere</h2>
+</div>
+<div class="text-slate-400 text-xs font-medium uppercase tracking-widest">Notification</div>
+</div>
+<!-- Failure Banner -->
+<div class="bg-error-bg dark:bg-red-950/30 px-8 py-10 text-center">
+<div class="inline-flex items-center justify-center size-16 bg-error-red/10 rounded-full mb-4">
+<span class="material-symbols-outlined text-error-red text-4xl">error</span>
+</div>
+<h1 class="text-slate-900 dark:text-white text-2xl font-bold mb-2">Deployment Failed</h1>
+<p class="text-slate-600 dark:text-slate-400 max-w-md mx-auto">
+                Your deployment for <span class="font-semibold text-slate-800 dark:text-slate-200">production-server-01</span> has stopped due to a technical error.
+            </p>
+</div>
+<!-- Deployment Details -->
+<div class="px-8 py-6 border-b border-slate-100 dark:border-slate-800">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="text-slate-400 text-xs uppercase font-semibold">Server Name</p>
+<p class="text-slate-800 dark:text-slate-200 font-medium">production-server-01</p>
+</div>
+<div class="space-y-1">
+<p class="text-slate-400 text-xs uppercase font-semibold">Region</p>
+<p class="text-slate-800 dark:text-slate-200 font-medium">US-East (N. Virginia)</p>
+</div>
+<div class="space-y-1">
+<p class="text-slate-400 text-xs uppercase font-semibold">Environment</p>
+<p class="text-slate-800 dark:text-slate-200 font-medium">Production</p>
+</div>
+<div class="space-y-1">
+<p class="text-slate-400 text-xs uppercase font-semibold">Failed At</p>
+<p class="text-slate-800 dark:text-slate-200 font-medium">Oct 24, 14:32 UTC</p>
+</div>
+</div>
+</div>
+<!-- Error Summary Section -->
+<div class="px-8 py-6">
+<h3 class="text-slate-900 dark:text-white font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">terminal</span>
+                Error Summary
+            </h3>
+<div class="bg-slate-950 rounded-lg p-4 font-mono text-sm leading-relaxed overflow-x-auto border border-slate-800">
+<p class="text-red-400">Error: Build process timed out after 300 seconds.</p>
+<p class="text-slate-500">at /var/www/app/scripts/build.sh: line 42</p>
+<p class="text-slate-300 mt-2">&gt; npm run build:production</p>
+<p class="text-slate-500">... [142 lines omitted]</p>
+<p class="text-red-400 mt-2">FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory</p>
+</div>
+</div>
+<!-- Action Button -->
+<div class="px-8 pb-10 pt-4 flex flex-col items-center">
+<a class="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                View Full Deployment Logs
+            </a>
+<p class="mt-6 text-slate-500 text-sm text-center">
+                Need help troubleshooting? Check our 
+                <a class="text-primary hover:underline font-medium" href="#">Documentation</a> 
+                or 
+                <a class="text-primary hover:underline font-medium" href="#">Contact Support</a>.
+            </p>
+</div>
+<!-- Footer -->
+<div class="px-8 py-8 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 text-center">
+<div class="flex justify-center gap-6 mb-6">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">chat</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+</div>
+<p class="text-slate-400 text-xs leading-loose">
+                You received this email because you have active deployments on VPSphere.<br/>
+                © 2024 VPSphere Inc. 123 Cloud Avenue, Tech City, CA 94043.
+            </p>
+<div class="mt-4 flex justify-center gap-4 text-xs font-medium text-slate-500">
+<a class="hover:text-primary underline" href="#">Unsubscribe</a>
+<a class="hover:text-primary underline" href="#">Manage Notifications</a>
+</div>
+</div>
+</div>
+</body></html>

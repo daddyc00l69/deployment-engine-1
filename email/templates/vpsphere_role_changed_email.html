@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere Role Updated</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1313",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4 md:p-8">
+<div class="max-w-[600px] w-full bg-white dark:bg-[#2d1a1a] rounded-xl shadow-sm overflow-hidden border border-primary/10">
+<!-- Header / Logo -->
+<div class="pt-8 pb-4 flex justify-center">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">account_tree</span>
+</div>
+<h2 class="text-[#181111] dark:text-white text-xl font-bold leading-tight tracking-tight">VPSphere</h2>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="px-6 md:px-12 py-8 text-center">
+<!-- Icon Indicator -->
+<div class="mb-6 inline-flex items-center justify-center size-16 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-4xl">manage_accounts</span>
+</div>
+<h1 class="text-[#181111] dark:text-white text-2xl md:text-3xl font-bold leading-tight mb-4">
+                Your role has been updated
+            </h1>
+<p class="text-[#896161] dark:text-primary/60 text-base font-normal leading-relaxed mb-8">
+                Your access level in the <span class="font-semibold text-[#181111] dark:text-white">{{workspace_name}}</span> workspace has been modified by an administrator.
+            </p>
+<!-- Role Transition Card -->
+<div class="bg-background-light dark:bg-background-dark/50 rounded-lg p-6 mb-8 border border-primary/5">
+<div class="flex flex-col md:flex-row items-center justify-around gap-6">
+<!-- Previous Role -->
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] uppercase tracking-wider font-bold text-[#896161]/70 dark:text-white/40">Previous Role</span>
+<div class="px-4 py-2 rounded-full bg-white dark:bg-[#181111] border border-primary/10 text-[#896161] dark:text-white/60 font-medium">
+                            Member
+                        </div>
+</div>
+<!-- Arrow -->
+<div class="text-primary/40 hidden md:block">
+<span class="material-symbols-outlined text-3xl">arrow_forward</span>
+</div>
+<div class="text-primary/40 md:hidden">
+<span class="material-symbols-outlined text-3xl">arrow_downward</span>
+</div>
+<!-- New Role -->
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] uppercase tracking-wider font-bold text-primary dark:text-primary">New Role</span>
+<div class="px-6 py-2 rounded-full bg-primary text-white font-bold shadow-md shadow-primary/20">
+                            Admin
+                        </div>
+</div>
+</div>
+</div>
+<!-- Call to Action -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-full md:w-auto min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-white text-base font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors">
+                    View Workspace
+                </button>
+<p class="text-xs text-[#896161] dark:text-primary/40 mt-4 italic">
+                    If you believe this change was made in error, please contact your workspace owner.
+                </p>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-6 py-8 border-t border-solid border-[#f4f0f0] dark:border-white/5 bg-background-light/50 dark:bg-background-dark/30">
+<div class="flex flex-col items-center text-center gap-4">
+<div class="flex gap-4 text-[#896161] dark:text-primary/40">
+<a class="text-xs hover:text-primary transition-colors" href="#">Support Center</a>
+<span class="text-xs">•</span>
+<a class="text-xs hover:text-primary transition-colors" href="#">Security</a>
+<span class="text-xs">•</span>
+<a class="text-xs hover:text-primary transition-colors" href="#">Privacy Policy</a>
+</div>
+<div class="text-[10px] text-[#896161]/60 dark:text-primary/30 max-w-[400px]">
+                    © 2024 VPSphere Cloud Solutions. 123 Hosting Way, Server City, DE 19801.<br/>
+                    You are receiving this email because a change was made to your account on VPSphere.
+                </div>
+</div>
+</div>
+</div>
+<!-- Decorative Elements (for web view) -->
+<div class="fixed top-0 left-0 w-full h-1 bg-primary"></div>
+<div class="fixed bottom-10 right-10 opacity-10 pointer-events-none select-none">
+<div class="bg-primary size-64 rounded-full blur-[100px]"></div>
+</div>
+<div class="fixed top-20 left-10 opacity-10 pointer-events-none select-none">
+<div class="bg-primary/50 size-48 rounded-full blur-[80px]"></div>
+</div>
+</body></html>

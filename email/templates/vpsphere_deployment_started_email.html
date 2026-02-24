@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere | Deployment Started</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5850f1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111118] min-h-screen flex items-center justify-center p-4">
+<!-- Main Email Container -->
+<div class="max-w-[600px] w-full bg-white dark:bg-[#1a1932] rounded-xl shadow-sm overflow-hidden border border-[#dcdbe6] dark:border-[#2d2c4e]">
+<!-- Header / Logo -->
+<div class="px-8 pt-8 pb-6 flex justify-between items-center border-b border-[#f0f0f4] dark:border-[#2d2c4e]">
+<div class="flex items-center gap-2 text-primary">
+<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+<svg class="size-5 text-primary" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111118] dark:text-white text-xl font-bold tracking-tight">VPSphere</h2>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-wider">
+                Building
+            </span>
+</div>
+<!-- Hero Section -->
+<div class="p-8 text-center bg-gradient-to-b from-primary/5 to-transparent">
+<div class="size-20 bg-white dark:bg-[#2d2c4e] rounded-full shadow-lg flex items-center justify-center mx-auto mb-6 text-primary">
+<span class="material-symbols-outlined !text-4xl" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<h1 class="text-2xl md:text-3xl font-bold text-[#111118] dark:text-white mb-4">
+                Your deployment is underway
+            </h1>
+<p class="text-[#636189] dark:text-slate-400 text-base leading-relaxed max-w-[480px] mx-auto">
+                We've started building your project. Your infrastructure is being provisioned and your code is being deployed to our global edge network.
+            </p>
+</div>
+<!-- Details Grid -->
+<div class="px-8 py-6 space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between py-4 border-t border-[#f0f0f4] dark:border-[#2d2c4e]">
+<span class="text-[#636189] dark:text-slate-400 text-sm font-medium">Project Name</span>
+<span class="text-[#111118] dark:text-white text-sm font-semibold mt-1 sm:mt-0">{{project_name}}</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between py-4 border-t border-[#f0f0f4] dark:border-[#2d2c4e]">
+<span class="text-[#636189] dark:text-slate-400 text-sm font-medium">Start Time</span>
+<span class="text-[#111118] dark:text-white text-sm font-semibold mt-1 sm:mt-0">{{start_time}}</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between py-4 border-t border-b border-[#f0f0f4] dark:border-[#2d2c4e]">
+<span class="text-[#636189] dark:text-slate-400 text-sm font-medium">Region</span>
+<span class="text-[#111118] dark:text-white text-sm font-semibold mt-1 sm:mt-0 flex items-center gap-1">
+<span class="material-symbols-outlined !text-sm" data-icon="public">public</span>
+                    Global Edge
+                </span>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="px-8 pb-10 pt-4">
+<a class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-6 bg-primary text-white text-base font-bold leading-normal tracking-wide shadow-lg shadow-primary/25 hover:bg-primary/90 transition-colors" href="#">
+<span class="material-symbols-outlined mr-2" data-icon="terminal">terminal</span>
+                View Real-time Logs
+            </a>
+<p class="text-center text-[#636189] dark:text-slate-500 text-xs mt-6">
+                You will receive another email once your deployment is live.
+            </p>
+</div>
+<!-- Footer -->
+<div class="bg-background-light dark:bg-[#111022] p-8 text-center border-t border-[#f0f0f4] dark:border-[#2d2c4e]">
+<div class="flex justify-center gap-6 mb-6">
+<a class="text-[#636189] dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</a>
+<a class="text-[#636189] dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</a>
+<a class="text-[#636189] dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</a>
+</div>
+<p class="text-[#636189] dark:text-slate-500 text-xs leading-relaxed">
+                Sent by VPSphere Hosting Inc.<br/>
+                123 Cloud Avenue, San Francisco, CA 94105<br/>
+<a class="underline hover:text-primary mt-2 inline-block" href="#">Unsubscribe from deployment notifications</a>
+</p>
+</div>
+</div>
+</body></html>

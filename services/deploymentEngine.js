@@ -48,16 +48,56 @@ function runCommand(command, args, cwd) {
  * @param {number} cpuLimit CPU limit mapped from user's plan
  * @param {number} assignedPort The internal port allocated by the PortManager
  * @param {string} projectId The UUID of the project for fetching environment variables
+ * @param {number} deploymentId The ID of the current deployment record
  */
-async function deploy(projectPath, projectName, framework, username, userId, memoryLimitMb, cpuLimit, assignedPort, projectId) {
+async function deploy(projectPath, projectName, framework, username, userId, memoryLimitMb, cpuLimit, assignedPort, projectId, deploymentId) {
     const uniqueContainerName = `${userId.substring(0, 8)}-${projectName}`;
-    const imageName = `deploy-${uniqueContainerName}`;
+    const imageName = `vpsphere-${uniqueContainerName}:${Date.now()}`;
+    let buildLogs = '';
 
     if (!assignedPort) throw new Error("Assigned port is required to bind the container securely.");
 
     // 1. Build the Docker image
     logger.info(`[${projectName}] Building Docker image: ${imageName}...`);
-    await runCommand('docker', ['build', '-t', imageName, '.'], projectPath);
+
+    let lastUpdateTime = Date.now();
+    const LOG_UPDATE_INTERVAL = 2000; // Update DB every 2 seconds
+
+    // Custom execution to capture logs for the DB
+    const buildProcess = spawn('docker', ['build', '-t', imageName, '.'], { cwd: projectPath });
+
+    await new Promise((resolve, reject) => {
+        const updateLogsInDb = async (force = false) => {
+            const now = Date.now();
+            if (force || now - lastUpdateTime > LOG_UPDATE_INTERVAL) {
+                lastUpdateTime = now;
+                if (deploymentId) {
+                    await pool.query(
+                        'UPDATE deployments SET logs = $1 WHERE id = $2',
+                        [buildLogs, deploymentId]
+                    ).catch(err => logger.error(`[Streaming Logs Error] ${err.message}`));
+                }
+            }
+        };
+
+        buildProcess.stdout.on('data', async (data) => {
+            const chunk = data.toString();
+            buildLogs += chunk;
+            await updateLogsInDb();
+        });
+
+        buildProcess.stderr.on('data', async (data) => {
+            const chunk = data.toString();
+            buildLogs += chunk;
+            await updateLogsInDb();
+        });
+
+        buildProcess.on('close', async (code) => {
+            await updateLogsInDb(true); // Final update
+            if (code === 0) resolve();
+            else reject(new Error(`Docker build failed with code ${code}. Logs: ${buildLogs.slice(-500)}`));
+        });
+    });
 
     // 2. Stop and remove existing container if it exists
     logger.info(`[${projectName}] Stopping and removing old container if exists...`);
@@ -70,16 +110,17 @@ async function deploy(projectPath, projectName, framework, username, userId, mem
     // 3. Detect exposed port based on framework conventions inside the Dockerfile
     let exposedPort = 3000;
     if (framework === 'react' || framework === 'static') exposedPort = 80;
-    if (framework === 'python') exposedPort = 5000; // default flask/wsgi port
-    if (framework === 'docker') exposedPort = 8080; // generic fallback
+    if (framework === 'python') exposedPort = 5000;
+    if (framework === 'docker') exposedPort = 8080;
 
     const dockerRunArgs = [
         'run', '-d',
         '--name', uniqueContainerName,
+        '--network', 'vpsphere-net',
         '--memory', `${memoryLimitMb}m`,
         '--cpus', `${cpuLimit}`,
         '--restart', 'unless-stopped',
-        '-p', `127.0.0.1:${assignedPort}:${exposedPort}` // Securely bind only to localhost reverse proxy
+        '-p', `127.0.0.1:${assignedPort}:${exposedPort}`
     ];
 
     // 4. Inject Encrypted Environment Variables at runtime
@@ -101,6 +142,17 @@ async function deploy(projectPath, projectName, framework, username, userId, mem
 
     logger.info(`[${projectName}] Starting new container...`);
     await runCommand('docker', dockerRunArgs, projectPath);
+
+    // 5. Update Deployment Metadata in DB
+    if (deploymentId) {
+        await pool.query(
+            `UPDATE deployments 
+             SET docker_image = $1, container_name = $2, port = $3, build_logs = $4, status = 'running' 
+             WHERE id = $5`,
+            [imageName, uniqueContainerName, assignedPort, buildLogs, deploymentId]
+        );
+    }
+
     logger.info(`[${projectName}] Container successfully deployed and running!`);
 }
 

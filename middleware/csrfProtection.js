@@ -20,6 +20,8 @@ const CSRF_EXEMPT_PATHS = [
     '/api/github/callback',
     '/health',
     '/',
+    '/deploy',
+    '/api/deployments',
 ];
 
 function csrfProtection(req, res, next) {

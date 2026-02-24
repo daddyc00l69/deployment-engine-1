@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere - Security Alert</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5850f1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111118] dark:text-white transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col items-center py-12 px-4 sm:px-6">
+<!-- Email Container -->
+<div class="w-full max-w-[600px] bg-white dark:bg-[#1c1b31] rounded-xl shadow-sm border border-primary/10 overflow-hidden">
+<!-- Branding Header -->
+<header class="flex items-center justify-between border-b border-solid border-[#f0f0f4] dark:border-white/5 px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold tracking-tight">VPSphere</h2>
+</div>
+<div class="text-xs font-medium text-slate-400 uppercase tracking-widest">Security Alert</div>
+</header>
+<!-- Hero Section -->
+<div class="p-8 pb-4 text-center">
+<div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined !text-4xl">key</span>
+</div>
+<h1 class="text-2xl font-bold leading-tight mb-2">New API Token Created</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+                    Hello Alex, a new personal access token was recently added to your VPSphere account.
+                </p>
+</div>
+<!-- Visual Divider/Graphic -->
+<div class="px-8 py-4">
+<div class="relative aspect-[16/6] w-full rounded-lg bg-gradient-to-br from-primary/20 via-primary/5 to-transparent overflow-hidden flex items-center justify-center">
+<div class="flex gap-4">
+<div class="h-12 w-12 rounded-lg bg-white dark:bg-[#2d2b55] shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">shield_lock</span>
+</div>
+<div class="h-12 w-12 rounded-lg bg-white dark:bg-[#2d2b55] shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">settings_remote</span>
+</div>
+<div class="h-12 w-12 rounded-lg bg-white dark:bg-[#2d2b55] shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">terminal</span>
+</div>
+</div>
+<!-- Abstract Pattern Decor -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" data-alt="Abstract subtle dot pattern background" style="background-image: radial-gradient(#5850f1 1px, transparent 1px); background-size: 20px 20px;"></div>
+</div>
+</div>
+<!-- Token Details Table -->
+<div class="px-8 py-4">
+<div class="rounded-lg border border-slate-100 dark:border-white/5 p-4 space-y-3">
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400 font-medium">Token Name</span>
+<span class="font-semibold text-slate-900 dark:text-white">Production-Backups</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400 font-medium">Created At</span>
+<span class="text-slate-700 dark:text-slate-300">Oct 24, 2023 • 14:20 UTC</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400 font-medium">IP Address</span>
+<span class="text-slate-700 dark:text-slate-300">192.168.1.105 (London, UK)</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400 font-medium">Scope</span>
+<span class="text-slate-700 dark:text-slate-300">Full Read/Write</span>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="px-8 py-6 flex flex-col items-center">
+<a class="inline-flex items-center justify-center px-8 py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-all w-full sm:w-auto shadow-lg shadow-primary/20" href="#">
+                    Manage API Tokens
+                </a>
+<p class="mt-4 text-xs text-slate-400">
+                    If this wasn't you, <a class="text-primary font-medium underline" href="#">revoke this token immediately</a>.
+                </p>
+</div>
+<!-- Security Reminder Box -->
+<div class="mx-8 mb-8 p-4 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/30 flex gap-3">
+<span class="material-symbols-outlined text-amber-600 dark:text-amber-500 flex-shrink-0">warning</span>
+<div>
+<h4 class="text-sm font-bold text-amber-800 dark:text-amber-500">Security Best Practice</h4>
+<p class="text-xs text-amber-700 dark:text-amber-400 mt-1 leading-relaxed">
+                        Never share your API tokens with anyone. VPSphere support will never ask for your private tokens or passwords. Always use environment variables for storage.
+                    </p>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-white/5 px-8 py-8 text-center border-t border-slate-100 dark:border-white/5">
+<div class="flex justify-center gap-6 mb-6">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">account_circle</span>
+</a>
+</div>
+<p class="text-[11px] text-slate-400 leading-normal max-w-xs mx-auto">
+                    Sent with care from VPSphere Cloud Infrastructure.<br/>
+                    123 Cloud Avenue, Suite 404, San Francisco, CA 94107
+                </p>
+<div class="mt-4 pt-4 border-t border-slate-200 dark:border-white/5">
+<p class="text-[10px] text-slate-400 uppercase tracking-widest">
+                        © 2023 VPSphere Inc. All Rights Reserved.
+                    </p>
+</div>
+</footer>
+</div>
+<!-- Utility Links -->
+<div class="mt-8 flex gap-4 text-sm text-slate-400 font-medium">
+<a class="hover:text-primary" href="#">Support Center</a>
+<span class="opacity-30">•</span>
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<span class="opacity-30">•</span>
+<a class="hover:text-primary" href="#">Email Preferences</a>
+</div>
+</div>
+</body></html>

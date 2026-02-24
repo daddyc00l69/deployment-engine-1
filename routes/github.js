@@ -11,6 +11,18 @@ const router = express.Router();
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || crypto.randomBytes(32).toString('hex'); // 32 chars for AES-256
 const IV_LENGTH = 16;
 
+function getApiBaseUrl() {
+    // Prefer explicit API base URL when available. Fallback to DOMAIN (as hostname) if set.
+    const raw =
+        process.env.API_BASE_URL ||
+        process.env.API_URL ||
+        process.env.DOMAIN ||
+        'https://api.devtushar.uk';
+
+    if (raw.startsWith('http://') || raw.startsWith('https://')) return raw.replace(/\/+$/, '');
+    return `https://${raw.replace(/\/+$/, '')}`;
+}
+
 function encrypt(text) {
     let iv = crypto.randomBytes(IV_LENGTH);
     let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
@@ -52,7 +64,8 @@ const authenticateToken = (req, res, next) => {
  */
 router.get('/connect', authenticateToken, (req, res) => {
     const clientId = process.env.GITHUB_CLIENT_ID;
-    const redirectUri = encodeURIComponent(`${process.env.DOMAIN || 'https://api.devtushar.uk'}/api/github/callback`);
+    const apiBase = getApiBaseUrl();
+    const redirectUri = encodeURIComponent(`${apiBase}/api/github/callback`);
 
     // Pass user.id in state securely to link account on return
     const state = jwt.sign({ userId: req.user.id }, process.env.JWT_SECRET || 'fallback_secret', { expiresIn: '15m' });
@@ -74,6 +87,8 @@ router.get('/callback', async (req, res) => {
     }
 
     try {
+        const apiBase = getApiBaseUrl();
+
         // Decode state to get user ID
         const decoded = jwt.verify(state, process.env.JWT_SECRET || 'fallback_secret');
         const userId = decoded.userId;
@@ -83,7 +98,7 @@ router.get('/callback', async (req, res) => {
             client_id: process.env.GITHUB_CLIENT_ID,
             client_secret: process.env.GITHUB_CLIENT_SECRET,
             code: code,
-            redirect_uri: `${process.env.DOMAIN || 'https://api.devtushar.uk'}/api/github/callback`
+            redirect_uri: `${apiBase}/api/github/callback`
         }, {
             headers: {
                 Accept: 'application/json'

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere Email Preferences Settings</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5850f1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111118] dark:text-white min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white dark:bg-background-dark px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">cloud_queue</span>
+</div>
+<h2 class="text-[#111118] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">VPSphere</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+<div class="text-[#636189] flex border-none bg-primary/5 items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111118] dark:text-white focus:outline-0 focus:ring-0 border-none bg-primary/5 focus:border-none h-full placeholder:text-[#636189] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search settings..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#111118] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-[#111118] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Deployments</a>
+<a class="text-[#111118] dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Team</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary" href="#">Settings</a>
+</div>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-primary/5 text-[#111118] dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-primary/5 text-[#111118] dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-xl">help</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar with professional look" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7dOWoPAcvKiNrrJYG04xInLJVtjpRMgDMSqRjrSO1Zhhthwoip5An8X8b2PWR6BHk4i0OKrTnsnbatsG_idbfu_uUv7plYR_-5nNudH8NX0PmsDAowlK3J5UO3Ei4kzqn2SlzMLKS9TFaFvlESeHGKXkOFmM54SkyZIOCseXucj9KOlRVkiiYvc3wI6LixZFc1Fjo-tw5ZRKtrzy4O0qkfAmhkUPuHPKidH_XB93nlCyMtUy3E8gzDbgF-iJekFQMqlqyuVX1Q6jT");'></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex justify-center py-12 px-6">
+<div class="max-w-[800px] w-full flex flex-col gap-8">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h1 class="text-[#111118] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Email Preferences</h1>
+<p class="text-[#636189] dark:text-gray-400 text-lg font-normal leading-normal">Customize how and when you receive updates from your VPSphere infrastructure.</p>
+</div>
+<!-- Card Container -->
+<div class="bg-white dark:bg-background-dark/50 rounded-xl shadow-sm border border-primary/10 overflow-hidden">
+<!-- Notification Categories Section -->
+<div class="p-6 border-b border-primary/5">
+<h2 class="text-[#111118] dark:text-white text-xl font-bold leading-tight mb-6">Notification Categories</h2>
+<div class="flex flex-col gap-2">
+<!-- Category: Deployments -->
+<div class="flex items-center gap-4 bg-white dark:bg-transparent p-4 rounded-lg hover:bg-primary/5 transition-colors justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111118] dark:text-white text-base font-semibold leading-normal">Deployments</p>
+<p class="text-[#636189] dark:text-gray-400 text-sm font-normal leading-normal">Updates on successful builds, failures, and environment changes</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-primary/10 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all duration-300">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Category: Billing -->
+<div class="flex items-center gap-4 bg-white dark:bg-transparent p-4 rounded-lg hover:bg-primary/5 transition-colors justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111118] dark:text-white text-base font-semibold leading-normal">Billing &amp; Usage</p>
+<p class="text-[#636189] dark:text-gray-400 text-sm font-normal leading-normal">Invoices, credit alerts, and monthly subscription renewals</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-primary/10 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all duration-300">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Category: Team -->
+<div class="flex items-center gap-4 bg-white dark:bg-transparent p-4 rounded-lg hover:bg-primary/5 transition-colors justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111118] dark:text-white text-base font-semibold leading-normal">Team Activity</p>
+<p class="text-[#636189] dark:text-gray-400 text-sm font-normal leading-normal">New member invites, role changes, and access requests</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-primary/10 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all duration-300">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Category: System Health -->
+<div class="flex items-center gap-4 bg-white dark:bg-transparent p-4 rounded-lg hover:bg-primary/5 transition-colors justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined">monitor_heart</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111118] dark:text-white text-base font-semibold leading-normal">System Health</p>
+<p class="text-[#636189] dark:text-gray-400 text-sm font-normal leading-normal">Maintenance windows, downtime alerts, and critical errors</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-primary/10 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all duration-300">
+<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Frequency Selector Section -->
+<div class="p-6 border-b border-primary/5">
+<h2 class="text-[#111118] dark:text-white text-xl font-bold leading-tight mb-2">Notification Frequency</h2>
+<p class="text-[#636189] dark:text-gray-400 text-sm mb-6">Choose how often you want to receive these updates.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Option 1 -->
+<label class="cursor-pointer group">
+<input checked="" class="peer hidden" name="frequency" type="radio"/>
+<div class="flex flex-col gap-2 p-4 border-2 border-primary/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<div class="size-4 rounded-full border-2 border-primary/20 flex items-center justify-center peer-checked:border-primary">
+<div class="size-2 rounded-full bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+</div>
+<p class="text-[#111118] dark:text-white font-bold text-sm">Real-time</p>
+<p class="text-[#636189] dark:text-gray-400 text-xs">Immediate email for every alert</p>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="cursor-pointer group">
+<input class="peer hidden" name="frequency" type="radio"/>
+<div class="flex flex-col gap-2 p-4 border-2 border-primary/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+<div class="size-4 rounded-full border-2 border-primary/20 flex items-center justify-center peer-checked:border-primary">
+<div class="size-2 rounded-full bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+</div>
+<p class="text-[#111118] dark:text-white font-bold text-sm">Daily Digest</p>
+<p class="text-[#636189] dark:text-gray-400 text-xs">One summary email every 24 hours</p>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="cursor-pointer group">
+<input class="peer hidden" name="frequency" type="radio"/>
+<div class="flex flex-col gap-2 p-4 border-2 border-primary/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">view_week</span>
+<div class="size-4 rounded-full border-2 border-primary/20 flex items-center justify-center peer-checked:border-primary">
+<div class="size-2 rounded-full bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+</div>
+<p class="text-[#111118] dark:text-white font-bold text-sm">Weekly Summary</p>
+<p class="text-[#636189] dark:text-gray-400 text-xs">Report delivered every Monday</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 bg-primary/[0.02] flex items-center justify-between">
+<button class="text-[#636189] dark:text-gray-400 text-sm font-medium hover:text-red-500 transition-colors">
+                                Unsubscribe from all emails
+                            </button>
+<button class="flex items-center justify-center rounded-lg h-12 bg-primary text-white px-8 text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">
+                                Save Preferences
+                            </button>
+</div>
+</div>
+<!-- Additional Help Info -->
+<div class="flex items-start gap-4 p-4 rounded-xl bg-primary/5 border border-primary/10">
+<span class="material-symbols-outlined text-primary">info</span>
+<div class="flex flex-col gap-1">
+<p class="text-[#111118] dark:text-white text-sm font-semibold">Looking for security alerts?</p>
+<p class="text-[#636189] dark:text-gray-400 text-xs">Critical security updates and account access logs are always sent in real-time and cannot be disabled for your protection.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="p-10 text-center border-t border-primary/10">
+<p class="text-[#636189] text-xs">© 2024 VPSphere Inc. All rights reserved. • Privacy Policy • Terms of Service</p>
+</footer>
+</div>
+</div>
+</body></html>

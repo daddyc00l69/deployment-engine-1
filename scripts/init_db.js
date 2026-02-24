@@ -9,6 +9,9 @@ async function initializeDatabase() {
     try {
         await client.query('BEGIN');
 
+        // Needed for gen_random_uuid()
+        await client.query(`CREATE EXTENSION IF NOT EXISTS pgcrypto`);
+
         // Users Table
         await client.query(`
             CREATE TABLE IF NOT EXISTS users (
@@ -155,6 +158,82 @@ async function initializeDatabase() {
                 expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
                 created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
             )
+        `);
+
+        // Enterprise session tracking (device-based refresh token rotation + revocation)
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS user_sessions (
+                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+                device_name TEXT,
+                browser TEXT,
+                os TEXT,
+                user_agent TEXT,
+                ip_address TEXT,
+                country TEXT,
+                device_fingerprint TEXT,
+                refresh_token_hash TEXT NOT NULL,
+                previous_refresh_token_hash TEXT,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                last_active TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                is_revoked BOOLEAN DEFAULT FALSE,
+                revoked_at TIMESTAMP WITH TIME ZONE
+            )
+        `);
+
+        // Prevent duplicate sessions for the same refresh token secret
+        await client.query(`
+            CREATE UNIQUE INDEX IF NOT EXISTS user_sessions_refresh_token_hash_uniq
+            ON user_sessions(refresh_token_hash)
+        `);
+        await client.query(`
+            CREATE INDEX IF NOT EXISTS user_sessions_user_id_last_active_idx
+            ON user_sessions(user_id, last_active DESC)
+        `);
+        await client.query(`
+            CREATE INDEX IF NOT EXISTS user_sessions_user_id_revoked_idx
+            ON user_sessions(user_id, is_revoked)
+        `);
+
+        // Phase 2: security logs for risk scoring & suspicious login events
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS security_logs (
+                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                user_id UUID,
+                ip_address TEXT,
+                country TEXT,
+                risk_score INTEGER,
+                reason TEXT,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+            )
+        `);
+        await client.query(`
+            CREATE INDEX IF NOT EXISTS security_logs_user_id_created_at_idx
+            ON security_logs(user_id, created_at DESC)
+        `);
+
+        // High-risk login challenges (OTP gating for suspicious logins)
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS login_challenges (
+                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+                email VARCHAR(255) NOT NULL,
+                otp_hash VARCHAR(255) NOT NULL,
+                risk_score INTEGER NOT NULL,
+                reason TEXT,
+                ip_address TEXT,
+                country TEXT,
+                user_agent TEXT,
+                device_fingerprint TEXT,
+                expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                verified_at TIMESTAMP WITH TIME ZONE,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+            )
+        `);
+        await client.query(`
+            CREATE INDEX IF NOT EXISTS login_challenges_user_id_created_at_idx
+            ON login_challenges(user_id, created_at DESC)
         `);
 
         // API Keys (Personal Access Tokens)

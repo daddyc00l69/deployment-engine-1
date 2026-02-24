@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere Invoice Generated</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5850f1",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111118] antialiased">
+<div class="relative flex min-h-screen w-full flex-col items-center py-8 px-4 md:py-12">
+<!-- Main Email Container -->
+<div class="w-full max-w-[600px] bg-white dark:bg-[#1a192e] rounded-xl shadow-lg overflow-hidden border border-primary/10">
+<!-- Branding Header -->
+<div class="flex items-center justify-center gap-2 py-8 border-b border-background-light dark:border-white/5">
+<div class="text-primary size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight dark:text-white text-[#111118]">VPSphere</h1>
+</div>
+<!-- Content Body -->
+<div class="px-6 py-10 md:px-12 text-center">
+<div class="mb-6 flex justify-center">
+<div class="bg-primary/10 p-4 rounded-full">
+<span class="material-symbols-outlined text-primary text-4xl">receipt_long</span>
+</div>
+</div>
+<h2 class="text-3xl font-bold text-[#111118] dark:text-white mb-2">Invoice Generated</h2>
+<p class="text-primary font-medium text-lg mb-8">Invoice #INV-2023-8942 is ready</p>
+<p class="text-[#636189] dark:text-gray-400 text-base leading-relaxed mb-10">
+                    Hello <span class="font-semibold text-[#111118] dark:text-white">{{User Name}}</span>, your invoice for the recent billing period is now available for review and payment.
+                </p>
+<!-- Summary Card -->
+<div class="bg-background-light dark:bg-[#252440] rounded-xl p-6 mb-10 text-left border border-primary/5">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="space-y-1">
+<p class="text-sm uppercase tracking-wider text-[#636189] dark:text-gray-400 font-bold">Amount Due</p>
+<p class="text-3xl font-bold text-[#111118] dark:text-white">$124.00</p>
+</div>
+<div class="h-px md:h-12 w-full md:w-px bg-primary/10"></div>
+<div class="space-y-1">
+<p class="text-sm font-medium text-[#636189] dark:text-gray-400">
+                                Billing Period: <span class="text-[#111118] dark:text-white">Oct 1 - Oct 31, 2023</span>
+</p>
+<p class="text-sm font-medium text-[#636189] dark:text-gray-400">
+                                Due Date: <span class="text-[#111118] dark:text-white">Nov 15, 2023</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Primary CTA -->
+<a class="inline-flex items-center justify-center w-full md:w-auto min-w-[240px] px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 mb-8" href="#">
+                    View &amp; Pay Invoice
+                </a>
+<!-- PDF Attachment Notice -->
+<div class="flex items-center justify-center gap-2 text-sm text-[#636189] dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+<span>A PDF copy is attached for your records</span>
+</div>
+</div>
+<!-- Email Footer Info -->
+<div class="bg-background-light/50 dark:bg-[#14132a] px-6 py-8 md:px-12 border-t border-background-light dark:border-white/5">
+<div class="flex flex-col items-center gap-6">
+<div class="flex gap-8">
+<a class="text-sm font-semibold text-primary hover:underline" href="#">Help Center</a>
+<a class="text-sm font-semibold text-primary hover:underline" href="#">Billing Support</a>
+<a class="text-sm font-semibold text-primary hover:underline" href="#">Privacy Policy</a>
+</div>
+<div class="text-center space-y-2">
+<p class="text-xs text-[#636189] dark:text-gray-500">
+                            You're receiving this because you're a VPSphere customer. 
+                            <a class="underline" href="#">Manage notification settings</a>
+</p>
+<p class="text-xs text-[#636189] dark:text-gray-500">
+                            123 Cloud Avenue, Suite 500, San Francisco, CA 94107
+                        </p>
+<p class="text-xs text-[#636189] dark:text-gray-500 font-medium pt-2">
+                            © 2023 VPSphere Inc. All rights reserved.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Note -->
+<div class="mt-8 text-center max-w-[500px]">
+<p class="text-sm text-[#636189] dark:text-gray-400">
+                If you have any questions regarding this invoice, please contact our 24/7 billing team by replying directly to this email or opening a support ticket.
+            </p>
+</div>
+</div>
+</body></html>

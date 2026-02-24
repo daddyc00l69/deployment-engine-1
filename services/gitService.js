@@ -8,31 +8,44 @@ const execFilePromise = util.promisify(execFile);
 
 // Assuming deploying relative to the project root, adjust as needed. 
 // E.g. d:\antigravitey\VPSphere\deployments
-const DEPLOYMENTS_ROOT = path.resolve(__dirname, '../../deployments');
+let DEPLOYMENTS_ROOT = process.platform === 'linux' ? '/var/deployments' : path.resolve(__dirname, '../../deployments');
+
+// Fallback logic for production if /var/deployments is not writable
+if (process.platform === 'linux') {
+    try {
+        if (!fs.existsSync(DEPLOYMENTS_ROOT)) {
+            // Try to create it, if fails, it will catch
+            fs.mkdirSync(DEPLOYMENTS_ROOT, { recursive: true });
+        }
+    } catch (e) {
+        const fallback = path.join(process.env.HOME || '/home/tushar', 'deployments');
+        logger.warn(`Directory ${DEPLOYMENTS_ROOT} is not writable. Falling back to ${fallback}. Please run: sudo mkdir -p /var/deployments && sudo chown -R $(whoami) /var/deployments`);
+        DEPLOYMENTS_ROOT = fallback;
+    }
+}
 
 /**
  * Clones a git repository into the deployments directory isolated per user.
  * 
  * @param {string} repoUrl URL of the repository (HTTP/HTTPS)
  * @param {string} projectName Sanitized project name
- * @param {string} userId UUID of the user
+ * @param {string} projectId UUID of the project
  * @param {string} githubToken Raw OAuth Access token (Optional)
  * @returns {Promise<string>} The absolute path to the cloned repository
  */
-async function clone(repoUrl, projectName, userId, githubToken = null) {
-    if (!userId) {
-        throw new Error('User ID is required for cloning isolated projects');
+async function clone(repoUrl, projectName, projectId, githubToken = null) {
+    if (!projectId) {
+        throw new Error('Project ID is required for cloning isolated projects');
     }
 
-    const userDeploymentsRoot = path.join(DEPLOYMENTS_ROOT, userId);
-
-    if (!fs.existsSync(userDeploymentsRoot)) {
-        fs.mkdirSync(userDeploymentsRoot, { recursive: true });
-    }
-
-    const targetPath = path.join(userDeploymentsRoot, projectName);
+    const targetPath = path.join(DEPLOYMENTS_ROOT, projectId, projectName);
+    const parentDir = path.dirname(targetPath);
 
     try {
+        if (!fs.existsSync(parentDir)) {
+            fs.mkdirSync(parentDir, { recursive: true });
+        }
+
         if (fs.existsSync(targetPath)) {
             logger.info(`[${projectName}] Directory exists. Wiping and cloning fresh...`);
             fs.rmSync(targetPath, { recursive: true, force: true });

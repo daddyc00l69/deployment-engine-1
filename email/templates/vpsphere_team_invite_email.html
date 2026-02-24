@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere Team Invite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7f13ec",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#191022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4 sm:p-8">
+<div class="max-w-[600px] w-full bg-white dark:bg-[#241a2e] rounded-xl shadow-xl overflow-hidden border border-primary/10">
+<!-- Top Branding Bar -->
+<div class="h-1.5 bg-primary w-full"></div>
+<!-- Header -->
+<header class="px-8 pt-8 pb-6 flex flex-col items-center text-center">
+<div class="flex items-center gap-2 mb-6">
+<div class="bg-primary text-white p-2 rounded-lg">
+<svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-[#141118] dark:text-white text-xl font-bold tracking-tight">VPSphere</span>
+</div>
+<h1 class="text-[#141118] dark:text-white text-2xl sm:text-3xl font-black leading-tight tracking-tight">
+                Join your team on VPSphere
+            </h1>
+<p class="mt-3 text-[#756189] dark:text-purple-200/70 text-base">
+                Hi there! <span class="font-semibold text-[#141118] dark:text-white">Alex Rivera</span> has invited you to collaborate on the <span class="font-semibold text-primary underline decoration-primary/30">Staging-Pro</span> workspace.
+            </p>
+</header>
+<!-- Message Card -->
+<div class="px-8 pb-4">
+<div class="bg-background-light dark:bg-primary/5 rounded-xl border border-primary/10 p-6 flex flex-col sm:flex-row gap-4 items-start">
+<div class="shrink-0">
+<div class="size-12 rounded-full bg-cover bg-center border-2 border-white dark:border-primary/20 shadow-sm" data-alt="Professional headshot of a team member" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBxpf6JZcz_QzOS3JbRlJyqi6M326-_7_ZRmS5sCdvqJ79A-JrjW5PbEkywkXuc2B5N7q-z96gb4v9Ptc_3R_AQSuKu6Scz4IFVdkWNIPhjY0r_4njV5rsRuNpoz9-TDeRbIxWsCxKA6uP9pO08w-uIFb6VJua3_TbW-4IQt8S9GE_JkKQQmKTL5_Z3wGEZZQXHSn3DL0doZHYRcyPccLOEva749_o9meIqFTOjbuDfpKkll5DhTZCRcdQIeTqIIBw__c32D9xk7fRu')">
+</div>
+</div>
+<div class="flex-1">
+<p class="text-[#141118] dark:text-white text-sm font-bold mb-1">Message from Alex Rivera</p>
+<p class="text-[#756189] dark:text-purple-200/70 text-sm italic leading-relaxed">
+                        "Hey! I've set up our new staging environment. Join the workspace to help manage the instances and monitor performance with the rest of the engineering team."
+                    </p>
+</div>
+</div>
+</div>
+<!-- Main CTA -->
+<div class="px-8 py-6 text-center">
+<a class="inline-flex items-center justify-center w-full sm:w-auto min-w-[240px] px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/20 transition-all" href="#">
+                Accept Invitation
+            </a>
+<p class="mt-4 text-xs text-[#756189] dark:text-purple-200/50">
+                This invitation will expire in 7 days.
+            </p>
+</div>
+<!-- Features/What you can do -->
+<div class="px-8 py-6 border-t border-background-light dark:border-primary/10">
+<h3 class="text-[#141118] dark:text-white text-sm font-bold uppercase tracking-wider mb-4">What you'll be able to do</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="bg-primary/10 text-primary p-2 rounded-lg">
+<span class="material-symbols-outlined" style="font-size: 20px;">database</span>
+</div>
+<div>
+<p class="text-[#141118] dark:text-white text-sm font-semibold">Manage Instances</p>
+<p class="text-[#756189] dark:text-purple-200/70 text-xs">Deploy and configure VPS instances directly within the workspace.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-primary/10 text-primary p-2 rounded-lg">
+<span class="material-symbols-outlined" style="font-size: 20px;">monitoring</span>
+</div>
+<div>
+<p class="text-[#141118] dark:text-white text-sm font-semibold">Real-time Monitoring</p>
+<p class="text-[#756189] dark:text-purple-200/70 text-xs">Access health metrics and performance logs for all active nodes.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-primary/10 text-primary p-2 rounded-lg">
+<span class="material-symbols-outlined" style="font-size: 20px;">group</span>
+</div>
+<div>
+<p class="text-[#141118] dark:text-white text-sm font-semibold">Team Collaboration</p>
+<p class="text-[#756189] dark:text-purple-200/70 text-xs">Invite more teammates and manage granular access permissions.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="px-8 py-8 bg-background-light dark:bg-[#1d1428] text-center">
+<div class="flex justify-center gap-6 mb-6">
+<a class="text-[#756189] dark:text-purple-200/50 hover:text-primary text-xs font-medium" href="#">Dashboard</a>
+<a class="text-[#756189] dark:text-purple-200/50 hover:text-primary text-xs font-medium" href="#">Documentation</a>
+<a class="text-[#756189] dark:text-purple-200/50 hover:text-primary text-xs font-medium" href="#">Support</a>
+</div>
+<p class="text-[#756189] dark:text-purple-200/40 text-[11px] leading-relaxed max-w-[400px] mx-auto">
+                You’re receiving this because you were invited to VPSphere. If you weren't expecting this invitation, you can safely ignore this email or contact support if you have concerns.
+            </p>
+<div class="mt-6 pt-6 border-t border-[#e2e0e5] dark:border-primary/5 flex flex-col items-center">
+<p class="text-[#756189] dark:text-purple-200/40 text-[10px]">
+                    © 2024 VPSphere Inc. 123 Cloud Way, San Francisco, CA.
+                </p>
+</div>
+</footer>
+</div>
+</body></html>

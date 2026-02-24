@@ -68,6 +68,7 @@ app.use('/auth/api-keys', apiKeyRoutes);
 app.use('/auth', authLimiter, authRoutes);
 // Cookie-based JWT auth (vpsphere_token) for browser sessions
 app.use('/deploy', authMiddleware, sessionActivity(), deployLimiter, deployRoutes);
+app.use('/api/deployments', authMiddleware, sessionActivity(), deployLimiter, deployRoutes);
 app.use('/project', authMiddleware, sessionActivity(), projectRoutes);
 app.use('/envs', envRoutes);
 app.use('/payments', authMiddleware, sessionActivity(), paymentRoutes);

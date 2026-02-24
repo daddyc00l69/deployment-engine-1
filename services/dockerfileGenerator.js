@@ -8,50 +8,71 @@ const logger = require('../utils/logger');
  * @param {string} projectPath Absolute path to the cloned code
  * @param {string} framework 'next', 'react', or 'static'
  */
-async function generate(projectPath, framework) {
+async function generate(projectPath, framework, buildCommand, startCommand) {
     const dockerfilePath = path.join(projectPath, 'Dockerfile');
+
+    if (fs.existsSync(dockerfilePath)) {
+        logger.info(`Existing Dockerfile found at ${dockerfilePath}. Skipping generation.`);
+        return;
+    }
 
     let content = '';
 
-    if (framework === 'next') {
-        content = `
-FROM node:20-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
-        `.trim();
-    } else if (framework === 'react') {
-        // Detect if it's Vite or CRA by reading package.json
-        let buildDir = 'build'; // CRA default
-        try {
-            const pkgPath = path.join(projectPath, 'package.json');
-            const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-            const deps = { ...pkg.dependencies, ...pkg.devDependencies };
-            if (deps.vite) {
-                buildDir = 'dist'; // Vite default
-            }
-        } catch (e) {
-            logger.warn(`Could not determine react build output dir for ${projectPath}, defaulting to 'build'`);
-        }
+    if (framework === 'next' || framework === 'node' || framework === 'react') {
+        const build = buildCommand || (framework === 'next' ? 'npm run build' : '');
+        const startRaw = startCommand || (framework === 'next' ? 'npm start' : 'node server.js');
+        const start = `CMD [${startRaw.split(' ').map(s => `"${s}"`).join(', ')}]`;
 
-        content = `
-# Build Stage
+        // detect package manager
+        let installCmd = 'npm install';
+        if (fs.existsSync(path.join(projectPath, 'yarn.lock'))) installCmd = 'yarn';
+        else if (fs.existsSync(path.join(projectPath, 'pnpm-lock.yaml'))) installCmd = 'pnpm install';
+
+        if (framework === 'react') {
+            let buildDir = 'build';
+            try {
+                const pkg = JSON.parse(fs.readFileSync(path.join(projectPath, 'package.json'), 'utf8'));
+                if (pkg.devDependencies?.vite || pkg.dependencies?.vite) buildDir = 'dist';
+            } catch (e) { }
+
+            content = `
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+${fs.existsSync(path.join(projectPath, 'yarn.lock')) ? 'COPY yarn.lock ./' : ''}
+RUN ${installCmd}
 COPY . .
-RUN npm run build
+RUN ${buildCommand || 'npm run build'}
 
-# Serve Stage
 FROM nginx:alpine
 COPY --from=build /app/${buildDir} /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+            `.trim();
+        } else {
+            content = `
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+${fs.existsSync(path.join(projectPath, 'yarn.lock')) ? 'COPY yarn.lock ./' : ''}
+RUN ${installCmd}
+COPY . .
+${build ? `RUN ${build}` : ''}
+EXPOSE 3000
+${start}
+            `.trim();
+        }
+    } else if (framework === 'python') {
+        const startRaw = startCommand || 'python app.py';
+        const start = `CMD [${startRaw.split(' ').map(s => `"${s}"`).join(', ')}]`;
+        content = `
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 5000
+${start}
         `.trim();
     } else if (framework === 'static') {
         content = `
@@ -60,8 +81,6 @@ COPY . /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
         `.trim();
-    } else {
-        throw new Error(`Cannot generate Dockerfile for unknown framework: ${framework}`);
     }
 
     // Write the Dockerfile

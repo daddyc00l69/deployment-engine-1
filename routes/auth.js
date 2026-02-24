@@ -97,7 +97,7 @@ function setSessionCookies(res, accessToken, refreshToken) {
     const baseOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         domain: COOKIE_DOMAIN
     };
 

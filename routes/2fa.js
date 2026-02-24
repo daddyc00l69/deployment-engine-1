@@ -4,12 +4,73 @@ const qrcode = require('qrcode');
 const { pool } = require('../services/db');
 const jwt = require('jsonwebtoken');
 const auditLogger = require('../services/auditLogger');
-const supabaseAuth = require('../middleware/supabaseAuth');
+const authMiddleware = require('../middleware/authMiddleware');
+const UAParser = require('ua-parser-js');
+const crypto = require('crypto');
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret';
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN
+    || (process.env.DOMAIN
+        ? `.${String(process.env.DOMAIN).replace(/^https?:\/\//, '').replace(/^api\./, '')}`
+        : undefined);
 
-router.post('/generate', supabaseAuth, async (req, res) => {
+function sha256Hex(input) {
+    return crypto.createHash('sha256').update(String(input)).digest('hex');
+}
+
+function generateRefreshToken() {
+    return crypto.randomBytes(40).toString('hex');
+}
+
+function getClientIp(req) {
+    const xf = req.headers['x-forwarded-for'];
+    if (xf) return String(xf).split(',')[0].trim();
+    return req.ip || req.socket?.remoteAddress || null;
+}
+
+function getCountry(req) {
+    const c = req.headers['cf-ipcountry'];
+    return c ? String(c) : null;
+}
+
+function parseDeviceInfo(userAgent) {
+    const ua = new UAParser(userAgent || '');
+    const browser = ua.getBrowser();
+    const os = ua.getOS();
+    const device = ua.getDevice();
+
+    const browserText = [browser.name, browser.version].filter(Boolean).join(' ');
+    const osText = [os.name, os.version].filter(Boolean).join(' ');
+    const deviceText = [device.vendor, device.model].filter(Boolean).join(' ').trim()
+        || device.type
+        || 'Unknown device';
+
+    const deviceFingerprint = sha256Hex([browserText, osText, userAgent || ''].join('|'));
+
+    return {
+        device_name: deviceText,
+        browser: browserText || null,
+        os: osText || null,
+        device_fingerprint: deviceFingerprint,
+    };
+}
+
+function setAccessCookie(res, accessToken, refreshToken) {
+    const baseOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        domain: COOKIE_DOMAIN
+    };
+    res.cookie('vpsphere_token', accessToken, { ...baseOptions, maxAge: 15 * 60 * 1000 });
+    res.cookie('token', accessToken, { ...baseOptions, maxAge: 15 * 60 * 1000 });
+    if (refreshToken) {
+        res.cookie('refreshToken', refreshToken, { ...baseOptions, path: '/auth/refresh', maxAge: 7 * 24 * 60 * 60 * 1000 });
+    }
+}
+
+router.post('/generate', authMiddleware, async (req, res) => {
     try {
         const result = await pool.query('SELECT email FROM users WHERE id = $1', [req.user.id]);
         const email = result.rows[0].email;
@@ -27,7 +88,7 @@ router.post('/generate', supabaseAuth, async (req, res) => {
     }
 });
 
-router.post('/verify-setup', supabaseAuth, async (req, res) => {
+router.post('/verify-setup', authMiddleware, async (req, res) => {
     try {
         const { token } = req.body;
         const result = await pool.query('SELECT two_factor_secret FROM users WHERE id = $1', [req.user.id]);
@@ -58,8 +119,10 @@ router.post('/verify-setup', supabaseAuth, async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { userId, token } = req.body;
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        const ip = getClientIp(req);
         const userAgent = req.headers['user-agent'] || 'Unknown';
+        const country = getCountry(req);
+        const deviceInfo = parseDeviceInfo(userAgent);
 
         const result = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
         if (result.rows.length === 0) return res.status(401).json({ error: 'User not found' });
@@ -94,34 +157,44 @@ router.post('/login', async (req, res) => {
             }
         }
 
+        const refreshToken = generateRefreshToken();
+        const refreshTokenHash = sha256Hex(refreshToken);
+
+        const sessionInsert = await pool.query(
+            `INSERT INTO user_sessions (
+                user_id,
+                device_name,
+                browser,
+                os,
+                user_agent,
+                ip_address,
+                country,
+                device_fingerprint,
+                refresh_token_hash,
+                expires_at
+            ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9, NOW() + INTERVAL '7 days')
+            RETURNING id`,
+            [
+                user.id,
+                deviceInfo.device_name,
+                deviceInfo.browser,
+                deviceInfo.os,
+                userAgent,
+                ip,
+                country,
+                deviceInfo.device_fingerprint,
+                refreshTokenHash
+            ]
+        );
+        const sessionId = sessionInsert.rows[0]?.id;
+
         const accessToken = jwt.sign(
-            { id: user.id, username: user.username, plan_id: user.plan_id },
+            { id: user.id, username: user.username, plan_id: user.plan_id, sid: sessionId },
             JWT_SECRET,
             { expiresIn: '15m' }
         );
 
-        const crypto = require('crypto');
-        const refreshToken = crypto.randomBytes(40).toString('hex');
-        const hashedRefreshToken = crypto.createHash('sha256').update(refreshToken).digest('hex');
-
-        await pool.query(
-            `INSERT INTO refresh_tokens (user_id, hashed_token, expires_at) VALUES ($1, $2, NOW() + INTERVAL '7 days')`,
-            [user.id, hashedRefreshToken]
-        );
-
-        res.cookie('token', accessToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 15 * 60 * 1000 // 15 mins
-        });
-
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-        });
+        setAccessCookie(res, accessToken, refreshToken);
 
         res.json({ token: accessToken, user: { id: user.id, username: user.username, plan_id: user.plan_id } });
 

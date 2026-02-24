@@ -1,5 +1,6 @@
 const { Worker } = require('bullmq');
 const { connection } = require('./queue');
+const path = require('node:path');
 const logger = require('../utils/logger');
 const { pool } = require('./db');
 const { sendDeploymentSuccess } = require('./mailer');
@@ -14,7 +15,7 @@ const { configureNginx } = require('./proxy');
 
 // Define the background worker process
 const worker = new Worker('deployments', async job => {
-    const { repoUrl, projectName, user, plan, projectId, deploymentId } = job.data;
+    const { repoUrl, projectName, user, plan, projectId, deploymentId, buildCommand, startCommand, rootDirectory } = job.data;
     logger.info(`[Worker] Started processing deployment for ${projectName} (Job ${job.id})`);
 
     try {
@@ -30,20 +31,21 @@ const worker = new Worker('deployments', async job => {
             githubToken = decrypt(tokenRes.rows[0].access_token);
         }
 
-        const repoPath = await gitService.clone(repoUrl, projectName, user.id, githubToken);
+        const repoPath = await gitService.clone(repoUrl, projectName, projectId, githubToken);
+        const projectPath = rootDirectory && rootDirectory !== './' ? path.join(repoPath, rootDirectory) : repoPath;
 
-        logger.info(`[${projectName}] Step 2: Detecting framework...`);
-        const framework = await frameworkDetector.detect(repoPath);
+        logger.info(`[${projectName}] Step 2: Detecting framework in ${projectPath}...`);
+        const framework = await frameworkDetector.detect(projectPath);
 
         logger.info(`[${projectName}] Step 3: Generating Dockerfile for ${framework}...`);
-        await dockerfileGenerator.generate(repoPath, framework);
+        await dockerfileGenerator.generate(projectPath, framework, buildCommand, startCommand);
 
         logger.info(`[${projectName}] Step 4: Building and running container...`);
         const assignedPort = await allocateFreePort(projectId);
         logger.info(`[${projectName}] Allocated dynamic Host port: ${assignedPort}`);
 
         await deploymentEngine.deploy(
-            repoPath,
+            projectPath,
             projectName,
             framework,
             user.username,
@@ -51,10 +53,11 @@ const worker = new Worker('deployments', async job => {
             plan.memory_limit_mb,
             plan.cpu_limit,
             assignedPort,
-            projectId
+            projectId,
+            deploymentId
         );
 
-        logger.info(`[Worker] Deployment ${projectName} completed successfully on Port ${assignedPort}`);
+        logger.info(`[Worker] Deployment ${projectName} (ID: ${deploymentId}) completed successfully on Port ${assignedPort}`);
 
         await pool.query("UPDATE projects SET status = 'running' WHERE id = $1", [projectId]);
         await pool.query("UPDATE deployments SET status = 'running' WHERE id = $1", [deploymentId]);

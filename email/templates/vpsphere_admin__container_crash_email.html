@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VPSphere Admin: Container Crash Alert</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1313",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4 md:p-10 text-[#181111]">
+<div class="max-w-[600px] w-full bg-white dark:bg-[#1a0a0a] rounded-xl shadow-2xl overflow-hidden border border-[#f4f0f0] dark:border-[#3d1a1a]">
+<!-- Header Section -->
+<header class="bg-white dark:bg-[#1a0a0a] border-b border-[#f4f0f0] dark:border-[#3d1a1a] px-8 py-6 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="text-primary">
+<svg class="size-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h1 class="text-xl font-black tracking-tight dark:text-white uppercase">VPSphere <span class="text-primary">Admin</span></h1>
+</div>
+<div class="px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
+<span class="text-primary text-xs font-bold uppercase tracking-widest">Urgent Alert</span>
+</div>
+</header>
+<!-- Main Content Body -->
+<div class="p-8">
+<div class="mb-8">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-4xl">error</span>
+<h2 class="text-2xl font-black tracking-tight dark:text-white">[CRITICAL] Container Crash</h2>
+</div>
+<p class="text-[#896161] dark:text-[#a88d8d] text-base leading-relaxed">
+                    Urgent: A Docker container has unexpectedly stopped on your production cluster. This interruption may affect your service availability. Immediate review is required.
+                </p>
+</div>
+<!-- Visualization/Status Card -->
+<div class="relative group mb-8">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-[#ff4d4d] rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative flex flex-col md:flex-row items-stretch justify-start rounded-xl shadow-sm bg-white dark:bg-[#2d1515] border border-[#f4f0f0] dark:border-[#4d2121] overflow-hidden">
+<div class="w-full md:w-1/3 bg-center bg-no-repeat aspect-video md:aspect-auto bg-cover" data-alt="Server room with red glowing status lights" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsxs1qPiBHpXgaObTFdG6AatxaLEy-7ep5ZH0kpfAUpQy0tDfVKgBJ1kzqfmLReoP6fbLIW3ZnC9A49MTZR4VofEdH-CdzzG-MSw3fIw_bwchjhVoVYEGKjokmwOaXE_uiFoHZ-vd22iy96xtc7FMJxIG6hQ6GnaWc0wQt1avgtNyDng6cTLNyhmfqfmVGZwqLxGkTGMSXh1Yo3GB8lBoYfiVZ_siiJohPqr4hKJuXxlb6Gs3Jr21w2VoDV70R5QZY87h4tTEIFaBR");'>
+<div class="w-full h-full bg-primary/20 mix-blend-multiply"></div>
+</div>
+<div class="flex-1 p-6 flex flex-col justify-center">
+<p class="text-primary text-xs font-bold uppercase tracking-widest mb-1">Incident Report</p>
+<p class="text-lg font-bold leading-tight tracking-tight dark:text-white mb-2">Container {{container_id}} crashed</p>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-sm">
+<span class="text-[#896161] dark:text-[#a88d8d]">Status:</span>
+<span class="font-bold text-primary">Terminated</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-[#896161] dark:text-[#a88d8d]">Exit Code:</span>
+<span class="font-mono bg-[#f4f0f0] dark:bg-[#3d1a1a] px-2 rounded text-[#181111] dark:text-white">137 (OOMKilled)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Specifications Table -->
+<div class="bg-background-light dark:bg-[#1a0a0a] rounded-lg p-6 border border-[#f4f0f0] dark:border-[#3d1a1a] mb-8">
+<h3 class="text-sm font-bold uppercase text-[#896161] dark:text-[#a88d8d] mb-4 tracking-wider">Service Details</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center border-b border-[#f4f0f0]/50 dark:border-[#3d1a1a] pb-3">
+<p class="text-[#896161] dark:text-[#a88d8d] text-sm">Service Name</p>
+<p class="text-[#181111] dark:text-white text-sm font-semibold tracking-tight">Production-API-01</p>
+</div>
+<div class="flex justify-between items-center border-b border-[#f4f0f0]/50 dark:border-[#3d1a1a] pb-3">
+<p class="text-[#896161] dark:text-[#a88d8d] text-sm">Container ID</p>
+<p class="text-[#181111] dark:text-white text-sm font-mono tracking-tighter">8f2a1109bc</p>
+</div>
+<div class="flex justify-between items-center border-b border-[#f4f0f0]/50 dark:border-[#3d1a1a] pb-3">
+<p class="text-[#896161] dark:text-[#a88d8d] text-sm">Cluster Node</p>
+<p class="text-[#181111] dark:text-white text-sm font-semibold tracking-tight">US-EAST-04</p>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-[#896161] dark:text-[#a88d8d] text-sm">Timestamp (UTC)</p>
+<p class="text-[#181111] dark:text-white text-sm font-semibold tracking-tight">2023-10-27 14:30:05</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="flex-1 flex items-center justify-center gap-2 overflow-hidden rounded-lg h-14 bg-primary text-white text-base font-bold transition hover:bg-primary/90 active:scale-[0.98]">
+<span class="material-symbols-outlined">restart_alt</span>
+<span class="truncate">Restart Container</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 overflow-hidden rounded-lg h-14 bg-[#f4f0f0] dark:bg-[#3d1a1a] text-[#181111] dark:text-white text-base font-bold transition hover:bg-[#e8e4e4] dark:hover:bg-[#4d2121] active:scale-[0.98]">
+<span class="material-symbols-outlined">description</span>
+<span class="truncate">View Logs</span>
+</button>
+</div>
+</div>
+<!-- Footer -->
+<footer class="px-8 py-8 bg-[#f8f6f6] dark:bg-[#150808] border-t border-[#f4f0f0] dark:border-[#3d1a1a]">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-center md:text-left">
+<p class="text-xs text-[#896161] dark:text-[#a88d8d] mb-2 font-medium">This is an automated system notification from your VPSphere Dashboard.</p>
+<div class="flex justify-center md:justify-start gap-4">
+<a class="text-xs font-bold text-primary hover:underline" href="#">Dashboard</a>
+<a class="text-xs font-bold text-primary hover:underline" href="#">Documentation</a>
+<a class="text-xs font-bold text-primary hover:underline" href="#">Contact Support</a>
+</div>
+</div>
+<div class="flex flex-col items-center md:items-end">
+<p class="text-[10px] uppercase tracking-widest text-[#896161] dark:text-[#a88d8d] font-bold">System Status</p>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="size-2 bg-yellow-500 rounded-full animate-pulse"></span>
+<span class="text-xs font-bold text-[#181111] dark:text-white">Degraded Performance</span>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-[#f4f0f0] dark:border-[#3d1a1a] text-center">
+<p class="text-[10px] text-[#896161] dark:text-[#a88d8d] opacity-60">© 2023 VPSphere Infrastructure Monitoring. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body></html>

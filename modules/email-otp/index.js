@@ -9,6 +9,10 @@ const path = require('path');
 const router = express.Router();
 
 const OTP_EXPIRY_SECONDS = 300; // 5 minutes
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN
+    || (process.env.DOMAIN
+        ? `.${String(process.env.DOMAIN).replace(/^https?:\/\//, '').replace(/^api\./, '')}`
+        : undefined);
 
 // structured logging for OTP
 const appendOTPLog = (status, email, details) => {
@@ -120,11 +124,21 @@ router.post('/verify', async (req, res) => {
             { expiresIn: '24h' }
         );
 
+        // Share cookie across app + api subdomains for seamless middleware gating.
+        res.cookie('vpsphere_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            domain: COOKIE_DOMAIN,
+            maxAge: 24 * 60 * 60 * 1000
+        });
+        // Backwards-compat
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000 // 24 hours
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            domain: COOKIE_DOMAIN,
+            maxAge: 24 * 60 * 60 * 1000
         });
 
         try {
