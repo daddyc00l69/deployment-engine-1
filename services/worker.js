@@ -1,3 +1,4 @@
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const { Worker } = require('bullmq');
 const { connection } = require('./queue');
 const path = require('node:path');
