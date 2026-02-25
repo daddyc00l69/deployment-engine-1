@@ -63,7 +63,7 @@ const worker = new Worker('deployments', async job => {
         await pool.query("UPDATE projects SET status = 'running' WHERE id = $1", [projectId]);
         await pool.query("UPDATE deployments SET status = 'running' WHERE id = $1", [deploymentId]);
 
-        const subdomain = `${projectName}.${user.username}.${process.env.BASE_DOMAIN || 'mydomain.net'}`;
+        const subdomain = `${projectName}-${user.username}.${process.env.BASE_DOMAIN || 'mydomain.net'}`;
 
         logger.info(`[${projectName}] Step 5: Configuring NGINX Reverse Proxy for ${subdomain}...`);
         await configureNginx(subdomain, assignedPort);

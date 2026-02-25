@@ -44,7 +44,7 @@ const deployHandler = async (req, res) => {
             }
 
             // Create or update Project Record
-            const subdomain = `${safeProjectName}.${user.username}.${process.env.BASE_DOMAIN || 'mydomain.net'}`;
+            const subdomain = `${safeProjectName}-${user.username}.${process.env.BASE_DOMAIN || 'mydomain.net'}`;
             let projectId;
 
             const existingProjectReq = await client.query('SELECT id FROM projects WHERE user_id = $1 AND name = $2', [user.id, safeProjectName]);
