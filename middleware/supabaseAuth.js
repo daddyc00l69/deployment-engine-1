@@ -9,10 +9,10 @@ const supabaseAuth = (req, res, next) => {
         }
 
         const token = authHeader.split(' ')[1];
-        const secret = process.env.SUPABASE_JWT_SECRET;
+        const secret = process.env.JWT_SECRET || process.env.SUPABASE_JWT_SECRET;
 
         if (!secret) {
-            console.error('[SupabaseAuth] SUPABASE_JWT_SECRET environment variable is missing.');
+            console.error('[SupabaseAuth] JWT_SECRET environment variable is missing.');
             return res.status(500).json({ error: 'Server authentication configuration error.' });
         }
 
