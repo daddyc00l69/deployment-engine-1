@@ -47,14 +47,21 @@ function decrypt(text) {
  * Middleware to verify JWT token
  */
 const authenticateToken = (req, res, next) => {
-    // Check headers or cookies
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1] || req.cookies?.token;
+    const bearer = authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice('Bearer '.length) : null;
+    const cookieToken = req.cookies?.vpsphere_token || req.cookies?.token || null;
+    const token = bearer || cookieToken;
 
-    if (!token) return res.status(401).json({ error: 'Access denied, token missing' });
+    if (!token) {
+        logger.warn('[GitHubAuth] Access denied, token missing');
+        return res.status(401).json({ error: 'Access denied, token missing' });
+    }
 
     jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret', (err, user) => {
-        if (err) return res.status(403).json({ error: 'Invalid token' });
+        if (err) {
+            logger.error(`[GitHubAuth] Invalid token: ${err.message}`);
+            return res.status(403).json({ error: 'Invalid token' });
+        }
         req.user = user;
         next();
     });
