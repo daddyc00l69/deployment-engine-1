@@ -33,14 +33,19 @@ function encrypt(text) {
 }
 
 function decrypt(text) {
-    let textParts = text.split(':');
-    let iv = Buffer.from(textParts.shift(), 'hex');
-    let encryptedText = Buffer.from(textParts.join(':'), 'hex');
-    const key = Buffer.from(ENCRYPTION_KEY).slice(0, 32);
-    let decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-    let decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    return decrypted.toString();
+    try {
+        let textParts = text.split(':');
+        let iv = Buffer.from(textParts.shift(), 'hex');
+        let encryptedText = Buffer.from(textParts.join(':'), 'hex');
+        const key = Buffer.from(ENCRYPTION_KEY).slice(0, 32);
+        let decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+        let decrypted = decipher.update(encryptedText);
+        decrypted = Buffer.concat([decrypted, decipher.final()]);
+        return decrypted.toString();
+    } catch (e) {
+        logger.error(`[GitHub] Token decryption failed: ${e.message}`);
+        return null;
+    }
 }
 
 /**
@@ -166,11 +171,16 @@ router.get('/status', authenticateToken, async (req, res) => {
         const client = await pool.connect();
         try {
             const result = await client.query(
-                'SELECT username, updated_at FROM github_accounts WHERE user_id = $1',
+                'SELECT username, updated_at, access_token FROM github_accounts WHERE user_id = $1',
                 [req.user.id]
             );
 
             if (result.rows.length > 0) {
+                const decryptedToken = decrypt(result.rows[0].access_token);
+                if (!decryptedToken) {
+                    // Token is corrupted or key changed
+                    return res.json({ connected: false });
+                }
                 res.json({ connected: true, username: result.rows[0].username, linkedAt: result.rows[0].updated_at });
             } else {
                 res.json({ connected: false });
@@ -218,6 +228,9 @@ router.get('/repos', authenticateToken, async (req, res) => {
             if (result.rows.length === 0) return res.status(404).json({ error: 'No GitHub account connected' });
 
             accessToken = decrypt(result.rows[0].access_token);
+            if (!accessToken) {
+                return res.status(401).json({ error: 'GitHub authentication expired or corrupted. Please reconnect your account.' });
+            }
         } finally {
             client.release();
         }
